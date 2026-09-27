@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Type=Application
+Name=Macro Pro
+Comment=Fare Makro Kaydedici ve Oynatıcı
+Exec=/home/yucel/Masaüstü/xxx/macro_launcher.sh
+Icon=input-mouse
+Terminal=false
+Categories=Utility;
