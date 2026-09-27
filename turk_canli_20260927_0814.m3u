@@ -1,0 +1,935 @@
+#EXTM3U
+#EXTINF:-1 tvg-logo="http://img.freeflagicons.com/thumb/round_icon/turkey/turkey_640.png" group-title="Turkiye TR" tvg-id="400956",======== ULUSAL ========
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400956&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/360.png" group-title="Turkiye TR" tvg-id="400983",360 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400983&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/360.png" group-title="Turkiye TR" tvg-id="400984",360 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400984&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/A2_logosu.jpg" group-title="Turkiye TR" tvg-id="400979",A2 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400979&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/A2_logosu.jpg" group-title="Turkiye TR" tvg-id="400980",A2 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400980&extension=ts
+#EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw1UIRnqhpt8AXCt_9hng8iW5u_lTIzbHxYw&s" group-title="Spor TR" tvg-id="2337405",Tabii Spor 4 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=2337405&extension=ts
+#EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw1UIRnqhpt8AXCt_9hng8iW5u_lTIzbHxYw&s" group-title="Spor TR" tvg-id="2337406",Tabii Spor 5 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=2337406&extension=ts
+#EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw1UIRnqhpt8AXCt_9hng8iW5u_lTIzbHxYw&s" group-title="Spor TR" tvg-id="2337407",Tabii Spor 6 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=2337407&extension=ts
+#EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw1UIRnqhpt8AXCt_9hng8iW5u_lTIzbHxYw&s" group-title="Spor TR" tvg-id="2337408",Tabii Spor 7 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=2337408&extension=ts
+#EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw1UIRnqhpt8AXCt_9hng8iW5u_lTIzbHxYw&s" group-title="Spor TR" tvg-id="2337409",Tabii Spor 8 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=2337409&extension=ts
+#EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw1UIRnqhpt8AXCt_9hng8iW5u_lTIzbHxYw&s" group-title="Spor TR" tvg-id="2337410",Tabii Spor 9 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=2337410&extension=ts
+#EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw1UIRnqhpt8AXCt_9hng8iW5u_lTIzbHxYw&s" group-title="Spor TR" tvg-id="2337411",Tabii Spor 10 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=2337411&extension=ts
+#EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw1UIRnqhpt8AXCt_9hng8iW5u_lTIzbHxYw&s" group-title="Spor TR" tvg-id="2337412",Tabii Spor 11 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=2337412&extension=ts
+#EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw1UIRnqhpt8AXCt_9hng8iW5u_lTIzbHxYw&s" group-title="Spor TR" tvg-id="2337413",Tabii Spor 12 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=2337413&extension=ts
+#EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw1UIRnqhpt8AXCt_9hng8iW5u_lTIzbHxYw&s" group-title="Spor TR" tvg-id="2337414",Tabii Spor 13 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=2337414&extension=ts
+#EXTINF:-1 tvg-logo="https://i.ibb.co/VWy5QqM8/Ht-spor-buyuk.webp" group-title="Turkiye TR" tvg-id="2543778",HT Spor HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=2543778&extension=ts
+#EXTINF:-1 group-title="Spor TR" tvg-id="1353465",Turkey-A SPOR HD
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=1353465&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/beyaztv.jpg" group-title="Turkiye TR" tvg-id="400977",Beyaz TV FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400977&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/beyaztv.jpg" group-title="Turkiye TR" tvg-id="400978",Beyaz TV HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400978&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/cemtv.png" group-title="Turkiye TR" tvg-id="400997",Cem TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400997&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/dosttv.png" group-title="Turkiye TR" tvg-id="401000",Dost TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401000&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/edessatv.png" group-title="Turkiye TR" tvg-id="401001",Edessa TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401001&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/eurod.png" group-title="Turkiye TR" tvg-id="400990",Euro D TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400990&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/eurostar.png" group-title="Turkiye TR" tvg-id="400991",Euro Star TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400991&extension=ts
+#EXTINF:-1 tvg-logo="http://sltv-icon.cms-s.com/logo/turkeyT/ekolTV.png" group-title="Turkiye TR" tvg-id="1298038",Ekol TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=1298038&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/flashtv.png" group-title="Turkiye TR" tvg-id="400999",Flash TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400999&extension=ts
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/D0B48GQG/FM-TV.jpg" group-title="Turkiye TR" tvg-id="401002",FM TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401002&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/Foxcrime.jpg" group-title="Turkiye TR" tvg-id="400985",FOX Crime HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400985&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/fox_global.png" group-title="Turkiye TR" tvg-id="400970",FOX TV HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400970&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/fox_global.png" group-title="Turkiye TR" tvg-id="400969",FOX TV FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400969&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/FX_HD_Logo_2.png" group-title="Turkiye TR" tvg-id="400994",FX HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400994&extension=ts
+#EXTINF:-1 group-title="Turkiye TR" tvg-id="401003",Kabe TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401003&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/kanal7avrupa.png" group-title="Turkiye TR" tvg-id="400993",Kanal 7 Avrupa TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400993&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/kanal7_tr.jpg" group-title="Turkiye TR" tvg-id="400975",Kanal 7 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400975&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/kanal7_tr.jpg" group-title="Turkiye TR" tvg-id="400976",Kanal 7 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400976&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/kanal_d_hd.jpg" group-title="Turkiye TR" tvg-id="400967",Kanal D FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400967&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/kanal_d_hd.jpg" group-title="Turkiye TR" tvg-id="400968",Kanal D HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400968&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/kudustv.png" group-title="Turkiye TR" tvg-id="401004",KUDUS TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401004&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/lalegültv.png" group-title="Turkiye TR" tvg-id="401005",Lalegül TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401005&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/line_tv_tr.png" group-title="Turkiye TR" tvg-id="401006",Line TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401006&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/medinetv.png" group-title="Turkiye TR" tvg-id="401011",Medine TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401011&extension=ts
+#EXTINF:-1 group-title="Turkiye TR" tvg-id="401010",Mekke TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401010&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/meltemtv.png" group-title="Turkiye TR" tvg-id="401007",Meltem TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401007&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/rehbertv.png" group-title="Turkiye TR" tvg-id="401008",Rehber TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401008&extension=ts
+#EXTINF:-1 tvg-logo="https://pngimage.net/wp-content/uploads/2018/06/%C5%9F%C3%B6mine-png-4.png" group-title="Turkiye TR" tvg-id="400957",Relax TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400957&extension=ts
+#EXTINF:-1 tvg-logo="https://www.szctv.com.tr/lib/clientappv2/assets/images/logo.png" group-title="Turkiye TR" tvg-id="530485",Sözcu TV FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=530485&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/semerkand_tv.png" group-title="Turkiye TR" tvg-id="401012",Semerkand TV TR HD
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401012&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/show_max_tr.png" group-title="Turkiye TR" tvg-id="400989",Show Max TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400989&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/show_max_tr.png" group-title="Turkiye TR" tvg-id="400964",Show TV HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400964&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/showtv.jpg" group-title="Turkiye TR" tvg-id="400963",Show TV FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400963&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/show_turk.png" group-title="Turkiye TR" tvg-id="400988",Show Türk TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400988&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/Star_TV_2011.png" group-title="Turkiye TR" tvg-id="400966",Star TV HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400966&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/Star_TV_2011.png" group-title="Turkiye TR" tvg-id="400965",Star TV FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400965&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.mypanel.one/tv-logos-main/tv-logos-main/countries/turkey/now-tr.png" group-title="Turkiye TR" tvg-id="1027671",NOW TV FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=1027671&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/teve2.jpg" group-title="Turkiye TR" tvg-id="400981",Teve2 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400981&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/teve2.jpg" group-title="Turkiye TR" tvg-id="400982",Teve2 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400982&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/trt1_hd.jpg" group-title="Turkiye TR" tvg-id="400959",TRT 1 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400959&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/trt1_hd.jpg" group-title="Turkiye TR" tvg-id="400960",TRT 1 HD
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400960&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/trt2.png" group-title="Turkiye TR" tvg-id="400986",TRT 2 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400986&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/trt_diyanet_tr.jpg" group-title="Turkiye TR" tvg-id="401009",TRT Diyanet
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401009&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/trt_4k_tr.png" group-title="Turkiye TR" tvg-id="400958",TRT 4K TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400958&extension=ts
+#EXTINF:-1 tvg-logo="http://138.199.27.237:8080/TURKIYE/24HABERHDPLUS.png" group-title="Turkiye TR" tvg-id="822494",TV4 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=822494&extension=ts
+#EXTINF:-1 tvg-logo="https://www.lyngsat-logo.com/logo/tv/tt/tv8_tr.png" group-title="Turkiye TR" tvg-id="400971",TV 8 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400971&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/tv8.png" group-title="Turkiye TR" tvg-id="400972",TV 8 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400972&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/tv8int.png" group-title="Turkiye TR" tvg-id="400992",TV 8 Int TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400992&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/tv85_tr.png" group-title="Turkiye TR" tvg-id="400973",TV 8.5 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400973&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/tv85_tr.png" group-title="Turkiye TR" tvg-id="400974",TV 8.5 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400974&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/ucan_kus_tv_tr.png" group-title="Turkiye TR" tvg-id="400995",Ucan Kus TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400995&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/yoltv.png" group-title="Turkiye TR" tvg-id="400998",Yol TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=400998&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/tvem.png" group-title="Turkiye TR" tvg-id="1027678",TV EM TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=1027678&extension=ts
+#EXTINF:-1 tvg-logo="http://img.freeflagicons.com/thumb/round_icon/turkey/turkey_640.png" group-title="Spor TR" tvg-id="401087",======== >SPOR<========
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401087&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/a_spor_tr.png" group-title="Spor TR" tvg-id="401126",A SPOR FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401126&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/a_spor_tr.png" group-title="Spor TR" tvg-id="401127",A SPOR HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401127&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_sports_01_hd.png" group-title="Spor TR" tvg-id="401096",beIN SPORTS 1 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401096&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_sports_01_hd.png" group-title="Spor TR" tvg-id="401094",beIN SPORTS 1 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401094&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_sports_01_hd.png" group-title="Spor TR" tvg-id="401095",beIN SPORTS 1 HD TR (Yedek)
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401095&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_sports_01_hd.png" group-title="Spor TR" tvg-id="401091",beIN SPORTS 1 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401091&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_sports_01_hd.png" group-title="Spor TR" tvg-id="401092",beIN SPORTS 1 FHD TR (Yedek)
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401092&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_sports_01_hd.png" group-title="Spor TR" tvg-id="401093",beIN SPORTS 1 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401093&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_sports_02_hd.png" group-title="Spor TR" tvg-id="401101",beIN SPORTS 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401101&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_sports_02_hd.png" group-title="Spor TR" tvg-id="401100",beIN SPORTS 2 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401100&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_sports_02_hd.png" group-title="Spor TR" tvg-id="401097",beIN SPORTS 2 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401097&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_sports_02_hd.png" group-title="Spor TR" tvg-id="401098",beIN SPORTS 2 FHD TR (Yedek)
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401098&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_sports_02_hd.png" group-title="Spor TR" tvg-id="401099",beIN SPORTS 2 FHD TR (Yedek2)
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401099&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_sports_03_hd.png" group-title="Spor TR" tvg-id="401105",beIN SPORTS 3 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401105&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_sports_03_hd.png" group-title="Spor TR" tvg-id="401102",beIN SPORTS 3 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401102&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_sports_03_hd.png" group-title="Spor TR" tvg-id="401103",beIN SPORTS 3 FHD TR (Yedek)
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401103&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_sports_03_hd.png" group-title="Spor TR" tvg-id="401104",beIN SPORTS 3 FHD TR (Yedek2)
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401104&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_sports_04_hd.png" group-title="Spor TR" tvg-id="401108",beIN SPORTS 4 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401108&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_sports_04_hd.png" group-title="Spor TR" tvg-id="401106",beIN SPORTS 4 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401106&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_sports_04_hd.png" group-title="Spor TR" tvg-id="401107",beIN SPORTS 4 FHD TR (Yedek)
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401107&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/bein-sports-haber-qa-tr.png" group-title="Spor TR" tvg-id="401088",beIN SPORTS HABER HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401088&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/bein-sports-haber-qa-tr.png" group-title="Spor TR" tvg-id="401089",beIN SPORTS HABER FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401089&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/bein-sports-max-1-qa-tr.png" group-title="Spor TR" tvg-id="401109",beIN SPORTS MAX 1 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401109&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/bein-sports-max-1-qa-tr.png" group-title="Spor TR" tvg-id="401110",beIN SPORTS MAX 1 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401110&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/bein-sports-max-2-qa-tr.png" group-title="Spor TR" tvg-id="401111",beIN SPORTS MAX 2 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401111&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/bein-sports-max-2-qa-tr.png" group-title="Spor TR" tvg-id="401112",beIN SPORTS MAX 2 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401112&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/eurosport1.png" group-title="Spor TR" tvg-id="401141",Eurosport 1 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401141&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/eurosport1.png" group-title="Spor TR" tvg-id="401140",Eurosport 1 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401140&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/eurosport2.png" group-title="Spor TR" tvg-id="401143",Eurosport 2 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401143&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/eurosport2.png" group-title="Spor TR" tvg-id="401142",Eurosport 2 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401142&extension=ts
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/KjY2WwCS/exxen.png" group-title="Spor TR" tvg-id="401145",Exxenn 1 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401145&extension=ts
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/KjY2WwCS/exxen.png" group-title="Spor TR" tvg-id="401144",Exxenn 1 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401144&extension=ts
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/KjY2WwCS/exxen.png" group-title="Spor TR" tvg-id="401146",Exxenn 2 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401146&extension=ts
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/KjY2WwCS/exxen.png" group-title="Spor TR" tvg-id="401147",Exxenn 2 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401147&extension=ts
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/KjY2WwCS/exxen.png" group-title="Spor TR" tvg-id="401148",Exxenn 3 HD
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401148&extension=ts
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/KjY2WwCS/exxen.png" group-title="Spor TR" tvg-id="401149",Exxenn 3 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401149&extension=ts
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/KjY2WwCS/exxen.png" group-title="Spor TR" tvg-id="401152",Exxenn 4 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401152&extension=ts
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/KjY2WwCS/exxen.png" group-title="Spor TR" tvg-id="401153",Exxenn 4 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401153&extension=ts
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/KjY2WwCS/exxen.png" group-title="Spor TR" tvg-id="401150",Exxenn 5 HD
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401150&extension=ts
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/KjY2WwCS/exxen.png" group-title="Spor TR" tvg-id="401151",Exxenn 5 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401151&extension=ts
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/d/db/Exxen.png" group-title="Spor TR" tvg-id="401154",Exxenn 6 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401154&extension=ts
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/KjY2WwCS/exxen.png" group-title="Spor TR" tvg-id="401155",Exxenn 6 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401155&extension=ts
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/KjY2WwCS/exxen.png" group-title="Spor TR" tvg-id="401156",Exxenn 7 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401156&extension=ts
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/KjY2WwCS/exxen.png" group-title="Spor TR" tvg-id="401157",Exxenn 8 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401157&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/fbtv_fenerbahce.png" group-title="Spor TR" tvg-id="401132",FB TV TR+
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401132&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/fbtv_fenerbahce.png" group-title="Spor TR" tvg-id="401133",FB TV HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401133&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/gstv_yeni_logo.png" group-title="Spor TR" tvg-id="401134",GS TV HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401134&extension=ts
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/d/d2/NBA_TV.svg/300px-NBA_TV.svg.png" group-title="Spor TR" tvg-id="401135",NBA TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401135&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/s_sport_tr.png" group-title="Spor TR" tvg-id="401123",S Sport HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401123&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/s_sport_tr.png" group-title="Spor TR" tvg-id="401122",S Sport FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401122&extension=ts
+#EXTINF:-1 tvg-logo="https://i.imgur.com/2jIItAy.png" group-title="Spor TR" tvg-id="401125",S Sport 2 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401125&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/s_sport_tr.png" group-title="Spor TR" tvg-id="401124",S Sport 2 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401124&extension=ts
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/b/b5/Smart-spor_635084424044881793.png" group-title="Spor TR" tvg-id="401120",Spor Smart HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401120&extension=ts
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/b/b5/Smart-spor_635084424044881793.png" group-title="Spor TR" tvg-id="401121",Spor Smart HD TR (Yedek)
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401121&extension=ts
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/b/b5/Smart-spor_635084424044881793.png" group-title="Spor TR" tvg-id="401119",Spor Smart FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401119&extension=ts
+#EXTINF:-1 tvg-logo="https://i.imgur.com/tGTVcVe.jpg" group-title="Spor TR" tvg-id="401138",sportstv TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401138&extension=ts
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/a/a9/S_Sport_logo1.png" group-title="Spor TR" tvg-id="401158",SSport+ 1 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401158&extension=ts
+#EXTINF:-1 tvg-logo="https://www.lyngsat-logo.com/logo/tv/ss/s-sport-tr.png" group-title="Spor TR" tvg-id="401159",SSport+ 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401159&extension=ts
+#EXTINF:-1 tvg-logo="https://trakyaturktv.com/uploads/library/2024/04/unnamed1.jpg" group-title="Spor TR" tvg-id="401136",T.A.Y TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401136&extension=ts
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/PrkjWzk3/Tivibu-Spor.jpg" group-title="Spor TR" tvg-id="401113",tivibu Spor 1 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401113&extension=ts
+#EXTINF:-1 tvg-logo="https://i.imgur.com/qvrKQY3.png" group-title="Spor TR" tvg-id="401114",tivibu Spor 1 HD TR (Yedek)
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401114&extension=ts
+#EXTINF:-1 tvg-logo="https://i.imgur.com/fZMSjNE.png" group-title="Spor TR" tvg-id="401115",tivibu Spor 2 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401115&extension=ts
+#EXTINF:-1 tvg-logo="https://i.imgur.com/fZMSjNE.png" group-title="Spor TR" tvg-id="401116",tivibu Spor 2 HD TR (Yedek)
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401116&extension=ts
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/Jn6sy6F2/Tivibu-spor-3.jpg" group-title="Spor TR" tvg-id="401117",tivibu Spor 3 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401117&extension=ts
+#EXTINF:-1 tvg-logo="https://i.imgur.com/LgGxe7z.png" group-title="Spor TR" tvg-id="401118",tivibu Spor 4 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401118&extension=ts
+#EXTINF:-1 tvg-logo="https://i.imgur.com/3zHdkYG.png" group-title="Spor TR" tvg-id="401137",TJK TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401137&extension=ts
+#EXTINF:-1 tvg-logo="https://i.imgur.com/6tv0zxh.png" group-title="Spor TR" tvg-id="401130",Trt Spor 2 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401130&extension=ts
+#EXTINF:-1 tvg-logo="http://tv.sarcheshmeh.us/index_files/channels/trtspor.png" group-title="Spor TR" tvg-id="401128",TRT Spor FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401128&extension=ts
+#EXTINF:-1 tvg-logo="http://tv.sarcheshmeh.us/index_files/channels/trtspor.png" group-title="Spor TR" tvg-id="401129",TRT Spor HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401129&extension=ts
+#EXTINF:-1 tvg-logo="https://trthaberstatic.cdn.wp.trt.com.tr/resimler/1584000/trtspor-yildiz-1584116.jpg" group-title="Spor TR" tvg-id="401131",TRT SPOR YILDIZ TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401131&extension=ts
+#EXTINF:-1 group-title="Turkiye TR" tvg-id="401160",======== HABER ========
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401160&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/24_tr.jpg" group-title="Turkiye TR" tvg-id="401191",24 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401191&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/24_tr.jpg" group-title="Turkiye TR" tvg-id="401190",24 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401190&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/a_haber_tr.png" group-title="Turkiye TR" tvg-id="401167",A Haber HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401167&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/a_haber_tr.png" group-title="Turkiye TR" tvg-id="401168",A Haber FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401168&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/A_Para_logosu.jpg" group-title="Turkiye TR" tvg-id="401187",A Para FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401187&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/akittv.png" group-title="Turkiye TR" tvg-id="401193",Akit TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401193&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/akittv.png" group-title="Turkiye TR" tvg-id="401192",AKIT TV TR+
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401192&extension=ts
+#EXTINF:-1 tvg-logo="http://138.199.27.237:8080/TURKIYE/ARTITV.png" group-title="Turkiye TR" tvg-id="401173",Arti TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401173&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/bengu_turk.png" group-title="Turkiye TR" tvg-id="401194",BENGUTÜRK TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401194&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/bloomberg_ht.png" group-title="Turkiye TR" tvg-id="401179",Bloomberg HT TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401179&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/cnn_turk.png" group-title="Turkiye TR" tvg-id="401166",CNN Türk HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401166&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/cnn_turk.png" group-title="Turkiye TR" tvg-id="401165",CNN Türk FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401165&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/ekoturk.png" group-title="Turkiye TR" tvg-id="401188",EKOTÜRK TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401188&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/haber-global-tr.png" group-title="Turkiye TR" tvg-id="401180",Haber Global FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401180&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/habertürk.png" group-title="Turkiye TR" tvg-id="401164",HABERTÜRK HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401164&extension=ts
+#EXTINF:-1 tvg-logo="http://logos.mypanel.one/nemesislogos/saqlogo/Turkey%20logo/harber%20turk.png" group-title="Turkiye TR" tvg-id="401163",HABERTÜRK FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401163&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/turkhaber.png" group-title="Turkiye TR" tvg-id="1027672",TH Turkhaber FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=1027672&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/halk_tv_tr.png" group-title="Turkiye TR" tvg-id="401170",HALK TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401170&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/halk_tv_tr.png" group-title="Turkiye TR" tvg-id="401169",HALK TV TR+
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401169&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/krt_tr.png" group-title="Turkiye TR" tvg-id="401172",KRT HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401172&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/krt_tr.png" group-title="Turkiye TR" tvg-id="401171",KRT FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401171&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/ntv_tr.png" group-title="Turkiye TR" tvg-id="401162",NTV HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401162&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/ntv_tr.png" group-title="Turkiye TR" tvg-id="401161",NTV FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401161&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/tele1.png" group-title="Turkiye TR" tvg-id="401174",TELE 1 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401174&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/tele1.png" group-title="Turkiye TR" tvg-id="822495",TELE 1 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=822495&extension=ts
+#EXTINF:-1 tvg-logo="http://138.199.27.237:8080/TURKIYE/KANAL42KONYA.png" group-title="Turkiye TR" tvg-id="822491",KANAL 24 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=822491&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/tgrt_haber.png" group-title="Turkiye TR" tvg-id="401178",TGRT HABER TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401178&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/tgrt_haber.png" group-title="Turkiye TR" tvg-id="401177",TGRT HABER FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401177&extension=ts
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/TRT_3_logo_%282021%29.svg/640px-TRT_3_logo_%282021%29.svg.png" group-title="Turkiye TR" tvg-id="401181",TRT 3 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401181&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/trt_avaz_tr.png" group-title="Turkiye TR" tvg-id="401182",TRT Avaz HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401182&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/trt_haber.png" group-title="Turkiye TR" tvg-id="401176",TRT Haber HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401176&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/trt_haber.png" group-title="Turkiye TR" tvg-id="401175",TRT Haber FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401175&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/trt_turk_tr.png" group-title="Turkiye TR" tvg-id="401184",TRT Türk HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401184&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/trt_turk_tr.png" group-title="Turkiye TR" tvg-id="401183",TRT Türk FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401183&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/trt_world_tr.png" group-title="Turkiye TR" tvg-id="401185",TRT WORLD HD
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401185&extension=ts
+#EXTINF:-1 group-title="Turkiye TR" tvg-id="761313",TRT 4K TR  [Only On 4K Devices]
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=761313&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/tv5.png" group-title="Turkiye TR" tvg-id="401197",TV 5 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401197&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/tv_100_tr.png" group-title="Turkiye TR" tvg-id="401186",TV100 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401186&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/tv_net_tr.png" group-title="Turkiye TR" tvg-id="401195",TVNET HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401195&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/ulusal_kanal.png" group-title="Turkiye TR" tvg-id="401189",Ulusal Kanal TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401189&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/ulusalkanal.png" group-title="Turkiye TR" tvg-id="401198",Ulusal Kanal+ TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401198&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/uzay_haber_tr.png" group-title="Turkiye TR" tvg-id="401199",UZAY HABER TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401199&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/ulke_tv_tr.png" group-title="Turkiye TR" tvg-id="401200",Ülke TV HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401200&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/ulke_tv_tr.png" group-title="Turkiye TR" tvg-id="401201",Ülke TV FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401201&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.mypanel.one/tv-logos-main/tv-logos-main/countries/turkey/sat7-turk-tr.png" group-title="Turkiye TR" tvg-id="1027677",Sat 7 Turk TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=1027677&extension=ts
+#EXTINF:-1 tvg-logo="http://img.freeflagicons.com/thumb/round_icon/turkey/turkey_640.png" group-title="Sinema TR" tvg-id="401211",======== Sinema ========
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401211&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_box_office_01_hd.png" group-title="Sinema TR" tvg-id="401257",beIN Box Office 1 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401257&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_box_office_02_hd.png" group-title="Sinema TR" tvg-id="401258",beIN Box Office 2 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401258&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_box_office_01_hd.png" group-title="Sinema TR" tvg-id="401259",BeiN Box Office 1 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401259&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_box_office_02_hd.png" group-title="Sinema TR" tvg-id="401260",BeiN Box Office 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401260&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_box_office_03_hd.png" group-title="Sinema TR" tvg-id="401261",BeiN Box Office 3 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401261&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/BEIN_MOVIES_ACTION.png" group-title="Sinema TR" tvg-id="401263",BeiN MOVIES Action 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401263&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/BEIN_MOVIES_ACTION.png" group-title="Sinema TR" tvg-id="401262",beIN MOVIES HD ACTION TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401262&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/bein-movies-premiere-qa-tr.png" group-title="Sinema TR" tvg-id="401264",beIN MOVIES HD PREMIER TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401264&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_movies_premier_02_hd.png" group-title="Sinema TR" tvg-id="401266",BeiN MOVIES Premier 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401266&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/bein-movies-premiere-qa-tr.png" group-title="Sinema TR" tvg-id="401265",BeiN MOVIES Premier TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401265&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_movies_turk_hd.png" group-title="Sinema TR" tvg-id="401267",beIN MOVIES Stars TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401267&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_movies_turk_hd.png" group-title="Sinema TR" tvg-id="401268",BeiN MOVIES Türk TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401268&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_movies_comedy_hd.png" group-title="Sinema TR" tvg-id="401269",beIN SERIES COMEDY HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401269&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_series_scifi_hd.png" group-title="Sinema TR" tvg-id="401270",beIN SERIES HD SCI-FI TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401270&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/be_in_tr_series_vice_hd.png" group-title="Sinema TR" tvg-id="401271",BeiN SERIES HD Vice TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401271&extension=ts
+#EXTINF:-1 tvg-logo="https://logos.mypanel.one/logos/LogoEVDTV/TR-Turkey/BluTV.svg.png" group-title="Sinema TR" tvg-id="401361",BluTV Aksiyon HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401361&extension=ts
+#EXTINF:-1 tvg-logo="https://logos.mypanel.one/logos/LogoEVDTV/TR-Turkey/BluTV.svg.png" group-title="Sinema TR" tvg-id="401362",BluTV Komedi HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401362&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401273",BOSS MOVIES 1 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401273&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401282",BOSS MOVIES 10 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401282&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401274",BOSS MOVIES 2 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401274&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401275",BOSS MOVIES 3 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401275&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401276",BOSS MOVIES 4 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401276&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401277",BOSS MOVIES 5 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401277&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401278",BOSS MOVIES 6 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401278&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401279",BOSS MOVIES 7 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401279&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401280",BOSS MOVIES 8 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401280&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401281",BOSS MOVIES 9 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401281&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401272",BOSS YESILCAM TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401272&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401234",DINAMIK SENER SEN TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401234&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401235",DINAMIK WESTERN TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401235&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401236",DINAMIK YESILCAM TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401236&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/dizismartmax.png" group-title="Sinema TR" tvg-id="401283",Dizi Smart Max FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401283&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/movie_smart_platin.png" group-title="Sinema TR" tvg-id="401284",DIZI SMART PREMIUM TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401284&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401255",ENO KADiR iNANIR TV 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401255&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401233",ENO KADiR iNANIR TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401233&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401285",ENO TURK 1 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401285&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401286",ENO TURK 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401286&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401287",ENO TURK 3 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401287&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401288",ENO TURK 4 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401288&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401289",ENO TURK 5 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401289&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401297",ENO ViZYON 1 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401297&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401296",ENO ViZYON 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401296&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401295",ENO ViZYON 3 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401295&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401294",ENO ViZYON 4 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401294&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401293",ENO ViZYON 5 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401293&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401292",ENO ViZYON 6 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401292&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401290",ENO ViZYON 7 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401290&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401291",ENO ViZYON 8 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401291&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401298",ENO WESTERN TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401298&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401256",ENO ZEKi METiN TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401256&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401299",ENOFLIX 1 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401299&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401300",ENOFLIX 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401300&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401301",ENOFLIX 3 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401301&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401212",FILMBOX AILE FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401212&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401213",FILMBOX AKSIYON FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401213&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401214",FILMBOX BILIMKURGU FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401214&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401215",FILMBOX GERILIM FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401215&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401216",FILMBOX KOMEDI FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401216&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401217",FILMBOX KORKU FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401217&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401218",FILMBOX TURK FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401218&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401219",FILMBOX YESILCAM FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401219&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401302",GOLD CINEMA MACERA TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401302&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401303",GOLD CINEMA YERLI TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401303&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401224",KEMAL SUNAL BOSS TV 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401224&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401223",KEMAL SUNAL BOSS TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401223&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401226",KEMAL SUNAL FILMBOX TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401226&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401225",KEMAL SUNAL REDBOX TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401225&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401227",KEMAL SUNAL VIP TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401227&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401228",KEMAL SUNAL Yesilcam HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401228&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401388",MOON MOVIE AILE 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401388&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401387",MOON MOVIE AiLE TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401387&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401390",MOON MOVIE AKSIYON 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401390&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401389",MOON MOVIE AKSiYON TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401389&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401392",MOON MOVIE ANIMASYON 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401392&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401391",MOON MOVIE ANIMASYON TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401391&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401394",MOON MOVIE DRAM 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401394&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401393",MOON MOVIE DRAM TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401393&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401395",MOON MOVIE FANTASTiK TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401395&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401396",MOON MOVIE HINT TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401396&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401397",MOON MOVIE JASON TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401397&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401398",MOON MOVIE KOMEDi TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401398&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401399",MOON MOVIE KORE TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401399&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401401",MOON MOVIE KORKU 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401401&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401400",MOON MOVIE KORKU TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401400&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401402",MOON MOVIE NETFLIX TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401402&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401403",MOON MOVIE TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401403&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/movie_smart.jpg" group-title="Sinema TR" tvg-id="401304",movieSMART HD Classic TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401304&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/movie_smart.jpg" group-title="Sinema TR" tvg-id="401305",movieSMART HD Türk TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401305&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401306",MULTIVIZYON 1 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401306&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401315",MULTIVIZYON 10 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401315&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401316",MULTIVIZYON 11 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401316&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401317",MULTIVIZYON 12 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401317&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401318",MULTIVIZYON 13 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401318&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401319",MULTIVIZYON 14 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401319&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401320",MULTIVIZYON 15 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401320&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401321",MULTIVIZYON 16 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401321&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401322",MULTIVIZYON 17 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401322&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401323",MULTIVIZYON 18 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401323&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401324",MULTIVIZYON 19 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401324&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401307",MULTIVIZYON 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401307&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401325",MULTIVIZYON 20 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401325&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401308",MULTIVIZYON 3 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401308&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401309",MULTIVIZYON 4 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401309&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401310",MULTIVIZYON 5 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401310&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401311",MULTIVIZYON 6 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401311&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401312",MULTIVIZYON 7 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401312&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401313",MULTIVIZYON 8 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401313&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401314",MULTIVIZYON 9 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401314&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401221",NEXTBOX ANIMASYON TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401221&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401220",NEXTBOX GERILIM TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401220&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401222",NEXTBOX TURK TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401222&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401326",POPCORN WESTERN TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401326&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401330",REDBOX 007 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401330&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401327",REDBOX AKSIYON 1 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401327&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401328",REDBOX AKSIYON 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401328&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401329",REDBOX AKSIYON 3 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401329&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401332",REDBOX ANIMASYON 1 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401332&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401333",REDBOX ANIMASYON 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401333&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401334",REDBOX BELGESEL TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401334&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401335",REDBOX BILIMKURGU 1 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401335&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401336",REDBOX BILIMKURGU 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401336&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401337",REDBOX CEM YILMAZ TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401337&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401338",REDBOX GOLD MIX TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401338&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401339",REDBOX KOMEDI 90'LAR TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401339&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401331",REDBOX MARVEL TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401331&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401341",REDBOX SINEMA TURK 1 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401341&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401342",REDBOX SINEMA TURK 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401342&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401343",REDBOX SINEMA TURK 3 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401343&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401340",REDBOX TURKCE SHOW TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401340&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401344",REDBOX VIZYON 1 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401344&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401345",REDBOX VIZYON 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401345&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401346",REDBOX YESILCAM TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401346&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401232",Sener Sen TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401232&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401347",SiNEMA YESiLCAM TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401347&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401348",SINEMAX TURK TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401348&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401349",SINEVIZYON NOSTALJI 1 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401349&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401350",SINEVIZYON NOSTALJI 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401350&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401351",SINEVIZYON TURK 1 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401351&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401360",SINEVIZYON TURK 10 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401360&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401352",SINEVIZYON TURK 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401352&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401353",SINEVIZYON TURK 3 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401353&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401354",SINEVIZYON TURK 4 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401354&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401355",SINEVIZYON TURK 5 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401355&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401356",SINEVIZYON TURK 6 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401356&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401357",SINEVIZYON TURK 7 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401357&extension=ts
+#EXTINF:-1 tvg-logo="https://asiagrandiptv.us/logo//SINEVIZYON.png" group-title="Sinema TR" tvg-id="401358",SINEVIZYON TURK 8 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401358&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401359",SINEVIZYON TURK 9 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401359&extension=ts
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Tivibu_logo.svg/500px-Tivibu_logo.svg.png" group-title="Sinema TR" tvg-id="401363",TIVIBU TV 1001 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401363&extension=ts
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Tivibu_logo.svg/500px-Tivibu_logo.svg.png" group-title="Sinema TR" tvg-id="401364",TIVIBU TV ACTION HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401364&extension=ts
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Tivibu_logo.svg/500px-Tivibu_logo.svg.png" group-title="Sinema TR" tvg-id="401365",TIVIBU TV AILE 2 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401365&extension=ts
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Tivibu_logo.svg/500px-Tivibu_logo.svg.png" group-title="Sinema TR" tvg-id="401366",TIVIBU TV AILE HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401366&extension=ts
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Tivibu_logo.svg/500px-Tivibu_logo.svg.png" group-title="Sinema TR" tvg-id="401367",TIVIBU TV KOMEDI 2 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401367&extension=ts
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Tivibu_logo.svg/500px-Tivibu_logo.svg.png" group-title="Sinema TR" tvg-id="401368",TIVIBU TV KOMEDI HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401368&extension=ts
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Tivibu_logo.svg/500px-Tivibu_logo.svg.png" group-title="Sinema TR" tvg-id="401369",TIVIBU TV YERLI 2 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401369&extension=ts
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Tivibu_logo.svg/500px-Tivibu_logo.svg.png" group-title="Sinema TR" tvg-id="401370",TIVIBU TV YERLI HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401370&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401371",VIP Aksiyon 1 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401371&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401372",VIP Aksiyon 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401372&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401373",VIP Bilimkurgu 1 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401373&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401374",VIP BilimKurgu 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401374&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401375",VIP Cocuk TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401375&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401376",VIP Drama 1 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401376&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401377",VIP Drama 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401377&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401378",VIP Komedi 1 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401378&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401379",VIP Komedi 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401379&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401380",VIP Korku 1 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401380&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401381",VIP Korku 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401381&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401382",VIP Mix 1 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401382&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401383",VIP Mix 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401383&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401384",VIP Mix 3 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401384&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401385",VIP Turk Korku TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401385&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401386",VIP Western TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401386&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401230",Yesilcam 1 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401230&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401231",Yesilcam 2 HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401231&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401237",YESILCAM AYHAN ISIK TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401237&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401238",YESILCAM CUNEYT ARKIN TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401238&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401239",YESILCAM EROL TAS TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401239&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401240",YESILCAM FILIZ AKIN TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401240&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401229",Yesilcam HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401229&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401241",YESILCAM HULYA KOCYIGIT TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401241&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401242",YESILCAM ILYAS SALMAN  TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401242&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401243",YESILCAM KADIR INANIR TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401243&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401244",YESILCAM KARISIK TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401244&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401245",YESILCAM KAZIM KARTAL TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401245&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401247",YESILCAM KEMAL SUNAL 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401247&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401246",YESILCAM KEMAL SUNAL TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401246&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401248",YESILCAM MUNIR OZKUL TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401248&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401249",YESILCAM SENER SEN TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401249&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401250",YESILCAM TARIK AKAN TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401250&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401251",YESILCAM TURKAN SORAY TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401251&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401252",YESILCAM YILMAZ GUNEY TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401252&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401253",YESILCAM ZEKI METIN TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401253&extension=ts
+#EXTINF:-1 group-title="Sinema TR" tvg-id="401254",Zeki Metin TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401254&extension=ts
+#EXTINF:-1 tvg-logo="http://img.freeflagicons.com/thumb/round_icon/turkey/turkey_640.png" group-title="Cocuk ve Belgesel TR" tvg-id="401404",======== Belgesel ========
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401404&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/24_tr.jpg" group-title="Cocuk ve Belgesel TR" tvg-id="401405",24 Kitchen HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401405&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/animaux.png" group-title="Cocuk ve Belgesel TR" tvg-id="401406",Animaux HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401406&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/bbcearth.png" group-title="Cocuk ve Belgesel TR" tvg-id="401407",BBC Earth HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401407&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/beingurme.png" group-title="Cocuk ve Belgesel TR" tvg-id="401408",beIN GURME HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401408&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/davincilearning.png" group-title="Cocuk ve Belgesel TR" tvg-id="401411",Da Vinci Learning HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401411&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/disney_channel_global.png" group-title="Cocuk ve Belgesel TR" tvg-id="401412",Discovery Channel HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401412&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/Discovery-iDX.png" group-title="Cocuk ve Belgesel TR" tvg-id="401413",Discovery IDX TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401413&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/discovery_science_global.png" group-title="Cocuk ve Belgesel TR" tvg-id="401414",Discovery Science TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401414&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/dmax_us.png" group-title="Cocuk ve Belgesel TR" tvg-id="401415",DMAX FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401415&extension=ts
+#EXTINF:-1 tvg-logo="https://spiintl.com/data/files/kcfinderUploadDir/images/logo/docubox-logo.png" group-title="Cocuk ve Belgesel TR" tvg-id="401416",Docubox HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401416&extension=ts
+#EXTINF:-1 tvg-logo="https://s10.gifyu.com/images/ENGLISHCLUB.png" group-title="Cocuk ve Belgesel TR" tvg-id="401417",English Club TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401417&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/historychannel.png" group-title="Cocuk ve Belgesel TR" tvg-id="401418",History Channel HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401418&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/lovenature.png" group-title="Cocuk ve Belgesel TR" tvg-id="401420",Love Nature HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401420&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/nat_geo_wild_us.png" group-title="Cocuk ve Belgesel TR" tvg-id="401423",Nat Geo Wild FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401423&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/nat_geo_wild_us.png" group-title="Cocuk ve Belgesel TR" tvg-id="401422",Nat Geo Wild HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401422&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/nat_geo_tr.jpg" group-title="Cocuk ve Belgesel TR" tvg-id="401424",National Geographic HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401424&extension=ts
+#EXTINF:-1 tvg-logo="http://103.161.34.238/dreamtv/tv/NATURE%20ESCAPE.png" group-title="Cocuk ve Belgesel TR" tvg-id="401425",Nature Escape HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401425&extension=ts
+#EXTINF:-1 group-title="Cocuk ve Belgesel TR" tvg-id="401426",Science & Vie TV HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401426&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/tarihtv.png" group-title="Cocuk ve Belgesel TR" tvg-id="401427",Tarih TV HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401427&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/tgrt_belgesel.png" group-title="Cocuk ve Belgesel TR" tvg-id="401428",Tgrt Belgesel TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401428&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/tlc_uk.png" group-title="Cocuk ve Belgesel TR" tvg-id="401430",TLC FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401430&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/tlc_uk.png" group-title="Cocuk ve Belgesel TR" tvg-id="401429",TLC HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401429&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/tgrt_belgesel.png" group-title="Cocuk ve Belgesel TR" tvg-id="401431",TRT Belgesel HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401431&extension=ts
+#EXTINF:-1 tvg-logo="http://logos.mypanel.one/nemesislogos/saqlogo/Turkey%20logo/explore.png" group-title="Cocuk ve Belgesel TR" tvg-id="401433",Viasat Explore HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401433&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/Viasat_History.png" group-title="Cocuk ve Belgesel TR" tvg-id="401435",Viasat History HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401435&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/viasatnature.png" group-title="Cocuk ve Belgesel TR" tvg-id="401434",Viasat Nature HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401434&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/yaban_tv_tr.png" group-title="Cocuk ve Belgesel TR" tvg-id="401436",YABAN TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401436&extension=ts
+#EXTINF:-1 tvg-logo="http://img.freeflagicons.com/thumb/round_icon/turkey/turkey_640.png" group-title="Cocuk ve Belgesel TR" tvg-id="401450",======== COCUK ========
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401450&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/babytv.png" group-title="Cocuk ve Belgesel TR" tvg-id="401453",Baby TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401453&extension=ts
+#EXTINF:-1 group-title="Cocuk ve Belgesel TR" tvg-id="401454",Boss Anime Disney TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401454&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/cartoonnetwork.png" group-title="Cocuk ve Belgesel TR" tvg-id="401455",Cartoon Network TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401455&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/cbeebies.jpg" group-title="Cocuk ve Belgesel TR" tvg-id="401456",CBEEBIES HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401456&extension=ts
+#EXTINF:-1 group-title="Cocuk ve Belgesel TR" tvg-id="401457",CINEGOLD CAILLOU FHD 7/24 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401457&extension=ts
+#EXTINF:-1 group-title="Cocuk ve Belgesel TR" tvg-id="401458",CINEGOLD NILOYA TV TR FHD 7/24 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401458&extension=ts
+#EXTINF:-1 group-title="Cocuk ve Belgesel TR" tvg-id="401459",CINEGOLD PIJAMASKELILER FHD 7/24 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401459&extension=ts
+#EXTINF:-1 group-title="Cocuk ve Belgesel TR" tvg-id="401460",CINEGOLD RAFADAN TAYFA HD 7/24 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401460&extension=ts
+#EXTINF:-1 group-title="Cocuk ve Belgesel TR" tvg-id="401461",Cizgi Film TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401461&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/disneychannel.png" group-title="Cocuk ve Belgesel TR" tvg-id="401462",Disney Channel TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401462&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/disneyjr.png" group-title="Cocuk ve Belgesel TR" tvg-id="401463",Disney Jr TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401463&extension=ts
+#EXTINF:-1 tvg-logo="http://dmtn.tv:8080/images/PNloraZl_34fTzt064WXynDD0KoLHXV1aANL8dI9eZwTfDu10KaM4iyKGlbi28Y3.png" group-title="Cocuk ve Belgesel TR" tvg-id="401452",Duck TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401452&extension=ts
+#EXTINF:-1 group-title="Cocuk ve Belgesel TR" tvg-id="401464",ENO ANiMASYON TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401464&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/filmbox_turkiye.png" group-title="Cocuk ve Belgesel TR" tvg-id="401465",FILMBOX HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401465&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/kukulitv.png" group-title="Cocuk ve Belgesel TR" tvg-id="401467",Kukuli TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401467&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/minikacocuk.png" group-title="Cocuk ve Belgesel TR" tvg-id="401468",minika COCUK TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401468&extension=ts
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/QCZXZVpL/Minika-go.png" group-title="Cocuk ve Belgesel TR" tvg-id="401470",minika GO HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401470&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/minikago.png" group-title="Cocuk ve Belgesel TR" tvg-id="401469",minika GO TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401469&extension=ts
+#EXTINF:-1 group-title="Cocuk ve Belgesel TR" tvg-id="401472",NETSERVER ANIMASYON 1 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401472&extension=ts
+#EXTINF:-1 group-title="Cocuk ve Belgesel TR" tvg-id="401473",NETSERVER ANIMASYON 2 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401473&extension=ts
+#EXTINF:-1 group-title="Cocuk ve Belgesel TR" tvg-id="401474",NETSERVER ANIMASYON 3 FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401474&extension=ts
+#EXTINF:-1 tvg-logo="http://vip.bmbtv.me:15000/nordic1/2uf7gK1Trq/2590" group-title="Cocuk ve Belgesel TR" tvg-id="401475",nick Jr. HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401475&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/nickelodeon.png" group-title="Cocuk ve Belgesel TR" tvg-id="401476",Nickelodeon HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401476&extension=ts
+#EXTINF:-1 group-title="Cocuk ve Belgesel TR" tvg-id="401477",Niloya TV TR TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401477&extension=ts
+#EXTINF:-1 group-title="Cocuk ve Belgesel TR" tvg-id="401478",Pembe Panter TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401478&extension=ts
+#EXTINF:-1 group-title="Cocuk ve Belgesel TR" tvg-id="401479",Pepee TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401479&extension=ts
+#EXTINF:-1 group-title="Cocuk ve Belgesel TR" tvg-id="401480",Pijamaskeliler TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401480&extension=ts
+#EXTINF:-1 group-title="Cocuk ve Belgesel TR" tvg-id="401481",Sevimli Hayalet Casper TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401481&extension=ts
+#EXTINF:-1 tvg-logo="https://asiagrandiptv.us/logo//SIRINLER.png" group-title="Cocuk ve Belgesel TR" tvg-id="401482",Sirinler TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401482&extension=ts
+#EXTINF:-1 group-title="Cocuk ve Belgesel TR" tvg-id="401484",Tom & Jerry TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401484&extension=ts
+#EXTINF:-1 group-title="Cocuk ve Belgesel TR" tvg-id="401485",TOM&JERRY TV HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401485&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/trteba.PNG" group-title="Cocuk ve Belgesel TR" tvg-id="401490",TRT EBA TV TR ilkokul TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401490&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/trteba.PNG" group-title="Cocuk ve Belgesel TR" tvg-id="401492",TRT EBA TV TR lise TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401492&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/trteba.PNG" group-title="Cocuk ve Belgesel TR" tvg-id="401491",TRT EBA TV TR ortaokul TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401491&extension=ts
+#EXTINF:-1 group-title="Cocuk ve Belgesel TR" tvg-id="401487",VIP Animasyon 1 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401487&extension=ts
+#EXTINF:-1 group-title="Cocuk ve Belgesel TR" tvg-id="401488",VIP Animasyon 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401488&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/warnerbros.png" group-title="Cocuk ve Belgesel TR" tvg-id="401489",Warner Bros TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401489&extension=ts
+#EXTINF:-1 group-title="Turkiye TR" tvg-id="401494",======== Müzik ========
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401494&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/360tunebox.png" group-title="Turkiye TR" tvg-id="401518",360 TuneBox HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401518&extension=ts
+#EXTINF:-1 group-title="Turkiye TR" tvg-id="401511",bMb Ankara TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401511&extension=ts
+#EXTINF:-1 group-title="Turkiye TR" tvg-id="401509",bMb Arabesk TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401509&extension=ts
+#EXTINF:-1 group-title="Turkiye TR" tvg-id="401510",bMb Hit Pop TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401510&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/damartv.png" group-title="Turkiye TR" tvg-id="401508",Damar TV 2 TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401508&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/damartv.png" group-title="Turkiye TR" tvg-id="401507",Damar TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401507&extension=ts
+#EXTINF:-1 group-title="Turkiye TR" tvg-id="401495",Dream Türk HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401495&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/kralpop.png" group-title="Turkiye TR" tvg-id="401497",KRAL POP HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401497&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/kraltv.png" group-title="Turkiye TR" tvg-id="401496",KRAL TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401496&extension=ts
+#EXTINF:-1 tvg-logo="http://abvsjdg.cluster030.hosting.ovh.net/logo/Turkey/mavi_karadeniz.png" group-title="Turkiye TR" tvg-id="401499",Mavi Karadeniz TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401499&extension=ts
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/mr9WwBHt/Nr1.jpg" group-title="Turkiye TR" tvg-id="401501",NR1 TV TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401501&extension=ts
+#EXTINF:-1 group-title="Turkiye TR" tvg-id="401500",NR1 TV TR FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401500&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/powertv.png" group-title="Turkiye TR" tvg-id="401503",POWER TV HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401503&extension=ts
+#EXTINF:-1 group-title="Turkiye TR" tvg-id="401504",POWER TÜRK FHD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401504&extension=ts
+#EXTINF:-1 tvg-logo="https://logo.m3uassets.com/tatlisestv.png" group-title="Turkiye TR" tvg-id="401502",Tatlises TV HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401502&extension=ts
+#EXTINF:-1 group-title="Turkiye TR" tvg-id="401506",TRT Müzik HD TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401506&extension=ts
+#EXTINF:-1 group-title="Turkiye TR" tvg-id="401512",Vip Arabesk TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401512&extension=ts
+#EXTINF:-1 tvg-logo="http://xplatinmedia.com:8080/images/e5f25d7f9568c93b8c3243adfbaae666.png" group-title="Turkiye TR" tvg-id="401515",Vip Turkce Pop TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401515&extension=ts
+#EXTINF:-1 tvg-logo="http://pns25.freesrv.org:8000/c/logo/chn/3705.png" group-title="Turkiye TR" tvg-id="401516",Vip Turkce Rap TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401516&extension=ts
+#EXTINF:-1 group-title="Turkiye TR" tvg-id="401517",Vip Yabanci Pop TR
+http://45.139.122.199:2095/play/live.php?mac=00:1A:79:D6:29:3C&stream=401517&extension=ts
