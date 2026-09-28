@@ -121,25 +121,31 @@ class OnizlemeUretici:
         if anahtar in self._bekleyen:
             return ""
         self._bekleyen.add(anahtar)
-        threading.Thread(target=self._uret, args=(anahtar, geri_cagir),
+        threading.Thread(target=self._uret,
+                         args=(anahtar, geri_cagir, self.kaynak),
                          daemon=True).start()
         return ""
 
-    def _uret(self, saniye: int, geri_cagir):
+    def _uret(self, saniye: int, geri_cagir, kaynak: str = ""):
+        if kaynak != self.kaynak:        # bu arada başka dosyaya geçildi
+            return
         yol = os.path.join(self._klasoru_al(), f"k{saniye}.jpg")
+        kaynak_yol = kaynak or self.kaynak
         with _kilit:
             # Kullanıcı çoktan başka yere gitmiş olabilir; yine de üretmek
             # ucuz (≈0,1 sn) ve önbelleğe girer.
             try:
                 subprocess.run(
                     [ffmpeg_var_mi(), "-y", "-loglevel", "error",
-                     "-ss", str(saniye), "-i", self.kaynak,
+                     "-ss", str(saniye), "-i", kaynak_yol,
                      "-frames:v", "1", "-vf", f"scale={self.en}:-1",
                      "-q:v", "6", yol],
                     capture_output=True, timeout=12)
             except Exception:
                 yol = ""
         self._bekleyen.discard(saniye)
+        if kaynak != self.kaynak:        # üretirken dosya değişti: çöpe at
+            return
         if yol and os.path.exists(yol) and os.path.getsize(yol) > 100:
             self._onbellek[saniye] = yol
             if geri_cagir:

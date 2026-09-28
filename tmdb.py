@@ -143,15 +143,19 @@ class TmdbIstemci:
         if yil:
             p["first_air_date_year" if dizi else "year"] = yil
         d = self._istek(f"/search/{tur}", **p)
-        sonuc = (d or {}).get("results") or []
+        if d is None:            # ağ/anahtar hatası: "bulunamadı" diye ÖNBELLEKLEME
+            return None
+        sonuc = d.get("results") or []
 
         # Yılla bulunamadıysa yılsız dene
         if not sonuc and yil:
             d = self._istek(f"/search/{tur}", query=ad, include_adult="false")
-            sonuc = (d or {}).get("results") or []
+            if d is None:
+                return None
+            sonuc = d.get("results") or []
 
         if not sonuc:
-            self._yaz(anahtar, {})
+            self._yaz(anahtar, {})   # TMDB gerçekten sonuç vermedi
             return None
 
         en_iyi = self._en_iyi_eslesme(sonuc, ad, yil)
@@ -185,22 +189,28 @@ class TmdbIstemci:
                     puan = max(puan, 70)
             tarih = (r.get("release_date") or r.get("first_air_date") or "")[:4]
             if yil and tarih:
-                fark = abs(int(yil) - int(tarih)) if tarih.isdigit() else 9
+                fark = (abs(int(yil) - int(tarih))
+                        if (tarih.isdigit() and str(yil).isdigit()) else 9)
                 puan += 25 if fark == 0 else (10 if fark == 1 else -12 * min(fark, 4))
             puan += min(r.get("popularity", 0), 60) / 12.0
             if puan > en_puan:
                 en_puan, en_iyi = puan, r
         return en_iyi if en_puan > 8 else (sonuclar[0] if sonuclar else None)
 
-    def detay(self, tmdb_id: int, dizi: bool = False):
-        """Tam detay: özet, tür, süre, oyuncu kadrosu, benzer içerikler."""
+    def detay(self, tmdb_id: int, dizi: bool = False, taze: bool = False):
+        """Tam detay: özet, tür, süre, oyuncu kadrosu, benzer içerikler.
+
+        taze=True: önbelleği atlar, TMDB'den yeniden çeker (yeni bölüm
+        taraması için — 14 günlük önbellek yeni bölümü geciktirirdi).
+        """
         if not tmdb_id:
             return None
         tur = "tv" if dizi else "movie"
         anahtar = f"detay|{tur}|{tmdb_id}"
-        onb = self._oku(anahtar)
-        if onb is not None:
-            return onb or None
+        if not taze:
+            onb = self._oku(anahtar)
+            if onb is not None:
+                return onb or None
         d = self._istek(f"/{tur}/{tmdb_id}",
                         append_to_response="credits,recommendations,external_ids")
         if d:
@@ -307,8 +317,11 @@ class TmdbIstemci:
                                "vote_average.gte": 7.0})
         else:
             return []
-        sonuc = (d or {}).get("results") or []
-        self._yaz(anahtar, sonuc)
+        if d is None:            # ağ hatası: boş rafı 14 gün önbellekleme
+            return []
+        sonuc = d.get("results") or []
+        if sonuc:
+            self._yaz(anahtar, sonuc)
         return sonuc
 
     def yuksek_puanli(self, sayfa_sayisi: int = 3, dizi: bool = False) -> list:

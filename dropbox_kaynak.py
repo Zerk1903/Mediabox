@@ -71,8 +71,13 @@ def yetkilendirme_baslat(app_key: str) -> tuple[str, str]:
     if not app_key:
         raise DropboxHata("App key boş olamaz")
     verifier, challenge = _pkce_uret()
+    # Yalnızca OKUMA: Dropbox artık sadece M3U içe aktarmak için kullanılıyor.
+    # (Yedekler kullanıcının seçtiği yedek klasörüne yazılır.)
+    scope = "files.content.read files.metadata.read account_info.read"
+    from urllib.parse import quote
     url = (f"{YETKI_URL}?client_id={app_key}&response_type=code"
            f"&token_access_type=offline"
+           f"&scope={quote(scope)}"
            f"&code_challenge={challenge}&code_challenge_method=S256")
     webbrowser.open(url)
     return verifier, url
@@ -151,7 +156,7 @@ def dosya_metni_al(access_token: str, yol: str) -> str:
     r = requests.post(f"{ICERIK_TABAN}/files/download", headers=basl, timeout=60)
     if r.status_code != 200:
         raise DropboxHata(f"'{yol}' indirilemedi (HTTP {r.status_code})")
-    return r.content.decode("utf-8", "ignore")
+    return r.content.decode("utf-8-sig", "ignore")   # BOM'u at
 
 
 def hesap_adi_al(access_token: str) -> str:
@@ -179,13 +184,13 @@ def kategori_tahmin_dosya_adindan(dosya_adi: str) -> str | None:
     kategoriye atanır — çok daha güvenilir.
     """
     ad = (dosya_adi or "").lower()
-    if any(k in ad for k in ("dizi", "diziler", "series", "show")):
-        return "series"
+    # anime önce: "anime_dizi.m3u" dizi değil anime sayılsın
     if any(k in ad for k in ("anime", "animasyon")):
         return "anime"
+    if any(k in ad for k in ("dizi", "series")):
+        return "series"
     if any(k in ad for k in ("canlı", "canli", "live", "tv kanal", "kanallar")):
         return "live"
     if any(k in ad for k in ("film", "filmler", "movie", "sinema")):
         return "movie"
     return None      # ipucu yok: satır bazlı otomatik tahmine bırak
-

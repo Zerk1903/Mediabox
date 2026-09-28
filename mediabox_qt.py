@@ -381,7 +381,12 @@ class Icerik:
         return temiz_baslik(self._ad_metni())
 
     def arama_metni(self) -> str:
-        return tr_sadelestir(f"{self._ad_metni()} {self._grup_metni()}")
+        ham = ""
+        try:
+            ham = str((self.attrs or {}).get("yt_baslik") or "")
+        except Exception:
+            pass
+        return tr_sadelestir(f"{self._ad_metni()} {self._grup_metni()} {ham}")
 
 
 def temiz_baslik(t: str) -> str:
@@ -418,10 +423,63 @@ def kategori_tahmin(grup: str, ad: str) -> str:
     return "movie"
 
 
+def _html_cop_mu(metin: str) -> bool:
+    """İndirilen metin YouTube/HTML sayfası mı? (M3U değil)"""
+    if not metin:
+        return False
+    ornek = metin[:4000].lower()
+    if "<!doctype html" in ornek or "<html" in ornek:
+        return True
+    if "ytInitialData" in metin[:8000] or "ytcfg" in ornek:
+        return True
+    if "<script" in ornek and "#extm3u" not in ornek and "#extinf" not in ornek:
+        return True
+    return False
+
+
+def _gecerli_akış_url(u: str) -> bool:
+    """Satır gerçek bir yayın adresi mi?"""
+    u = (u or "").strip()
+    if not u or len(u) > 4000:
+        return False
+    # HTML / JS artıkları
+    if any(x in u for x in ("<", ">", "{", "}", "function(", "var ", "const ", "&&", "||")):
+        return False
+    if u.startswith("#"):
+        return False
+    low = u.lower()
+    if low.startswith(("http://", "https://", "rtmp://", "rtsp://", "rtsps://",
+                       "udp://", "srt://", "file://", "acestream://")):
+        return True
+    # göreli / yerel dosya yolu (nadiren M3U'da)
+    if low.endswith((".m3u8", ".m3u", ".mp4", ".mkv", ".ts", ".mpd")):
+        return True
+    return False
+
+
+def _cop_ad_mi(ad: str) -> bool:
+    """Kart başlığı JS/HTML çöpü mü?"""
+    a = (ad or "").strip()
+    if not a or len(a) > 300:
+        return True
+    if any(x in a for x in ("<", ">", "{", "}", "function", "=>", "null)",
+                            "typeof", "window.", "document.", "script",
+                            "nonce=", "ytplayer", "Math.max", "WeakMap",
+                            "prototype", "closure", "SPDX-", "Copyright")):
+        return True
+    # yalnızca noktalama / tek karakter
+    if len(re.sub(r"[\W_]+", "", a)) < 2:
+        return True
+    return False
+
+
 def m3u_ayristir(metin: str, kaynak: str = "", kategori: str | None = None) -> list[Icerik]:
-    """M3U/M3U8 metnini Icerik listesine çevirir."""
+    """M3U/M3U8 metnini Icerik listesine çevirir. HTML/JS çöpünü reddeder."""
     sonuc: list[Icerik] = []
     if not metin:
+        return sonuc
+    # YouTube / HTML sayfası asla M3U değildir
+    if _html_cop_mu(metin):
         return sonuc
     cur: Icerik | None = None
     for ham in metin.splitlines():
@@ -435,8 +493,12 @@ def m3u_ayristir(metin: str, kaynak: str = "", kategori: str | None = None) -> l
             grup = attrs.pop("group-title", "")
             logo = attrs.pop("tvg-logo", "")
             tvg_ad = attrs.pop("tvg-name", "")
+            ad_son = (tvg_ad or ad or "?").strip()
+            if _cop_ad_mi(ad_son):
+                cur = None
+                continue
             cur = Icerik(
-                ad=(tvg_ad or ad or "?").strip(),
+                ad=ad_son,
                 logo=logo.strip(),
                 grup=grup.strip(),
                 kaynak=kaynak,
@@ -447,11 +509,6 @@ def m3u_ayristir(metin: str, kaynak: str = "", kategori: str | None = None) -> l
             )
         elif _VLC_RE.match(satir):
             if cur:
-                # Bazı listeler (özellikle vidload vb.) URL'yi EXTVLCOPT
-                # satırına yapıştırır:
-                #   #EXTVLCOPT:http-referrer=https://site/ https://cdn/.../master.m3u8
-                # VLC toleranslıdır; mpv/MediaBox ayrı URL satırı bekler.
-                # Değer içindeki ikinci http(s) adresini URL olarak ayır.
                 m = re.search(
                     r'(#EXTVLCOPT:\s*[\w-]+=)(\S+)\s+(https?://\S+)',
                     satir, re.I)
@@ -459,25 +516,538 @@ def m3u_ayristir(metin: str, kaynak: str = "", kategori: str | None = None) -> l
                     cur.vlcopt.append(m.group(1) + m.group(2))
                     if not cur.url:
                         cur.url = m.group(3).rstrip()
-                        cur.kategori = kategori or kategori_tahmin(cur.grup, cur.ad)
-                        sonuc.append(cur)
+                        if _gecerli_akış_url(cur.url) and not _cop_ad_mi(cur.ad):
+                            cur.kategori = kategori or kategori_tahmin(cur.grup, cur.ad)
+                            sonuc.append(cur)
                         cur = None
                 else:
                     cur.vlcopt.append(satir)
         elif satir.startswith("#"):
             continue
         else:
+            if not _gecerli_akış_url(satir):
+                cur = None
+                continue
             if cur is None:
                 ad = satir.rsplit("/", 1)[-1].split("?")[0] or satir
+                if _cop_ad_mi(ad):
+                    ad = "İçerik"
                 cur = Icerik(ad=ad, kaynak=kaynak, eklenme=time.time())
+            elif _cop_ad_mi(cur.ad):
+                cur = None
+                continue
             cur.url = satir
             cur.kategori = kategori or kategori_tahmin(cur.grup, cur.ad)
+            # YouTube linkleri YouTube sekmesine düşsün
+            ul = satir.lower()
+            if "youtube.com" in ul or "youtu.be" in ul:
+                cur.kategori = "youtube"
             sonuc.append(cur)
             cur = None
-    # Dosya bittiğinde URL'siz kalan son kayıt (yalnızca EXTVLCOPT
-    # satırından URL çıkarılmış ama yukarıda eklenmemiş olabilir)
-    # zaten yukarıda append edildi; burada ekstra işlem yok.
     return sonuc
+
+
+def youtube_playlist_mi(url: str) -> bool:
+    """YouTube oynatma listesi veya watch?list= adresi mi?"""
+    u = (url or "").strip().lower()
+    if "youtube.com" not in u and "youtu.be" not in u:
+        return False
+    return ("list=" in u) or ("/playlist" in u)
+
+
+def youtube_video_mi(url: str) -> bool:
+    u = (url or "").strip().lower()
+    if "youtube.com" not in u and "youtu.be" not in u:
+        return False
+    return (not youtube_playlist_mi(url)) and (
+        "watch?v=" in u or "youtu.be/" in u or "/shorts/" in u or "/live/" in u
+    )
+
+
+_YT_YIL_RE = re.compile(r"(?<!\d)(19[2-9]\d|20[0-3]\d)(?!\d)")
+_YT_GURULTU = re.compile(
+    r"(?i)(?<![\w])(?:full\s*hd|full\s*film|tek\s*par[cç]a|t[üu]rk\s*filmi|"
+    r"yerli\s*film|ye[sş]il[cç]am(?:\s*filmi)?|restore\s*edilmi[sş]|restorasyonlu|"
+    r"sans[üu]rs[üu]z|film\s*izle|filmi\s*izle|izle|fhd|1080p|720p|4k|hd|"
+    r"komedi\s*filmi|dram\s*filmi|orijinal|yabanc[ıi]\s*film|"
+    r"t[üu]rk[cç]e\s*dublaj(?:l[ıi])?|altyaz[ıi]l[ıi]|dublaj(?:l[ıi])?)(?![\w])")
+
+
+# "Oyuncu - Film Adı" biçimindeki başlıklarda oyuncu adı film sanılmasın.
+# (Sık geçen Yeşilçam / Türk sineması isimleri; listeye ekleme yapılabilir.)
+_YT_OYUNCULAR = {
+    "kemal sunal", "sener sen", "tarik akan", "kadir inanir", "turkan soray",
+    "fatma girik", "cuneyt arkin", "ilyas salman", "munir ozkul", "adile nasit",
+    "halit akcatepe", "sadri alisik", "zeki alasya", "metin akpinar",
+    "erol tas", "ediz hun", "hulya kocyigit", "ozturk serengil", "behcet nacar",
+    "yilmaz guney", "orhan gencebay", "ibrahim tatlises", "muslum gurses",
+    "kartal tibet", "salih guney", "cem yilmaz", "sahan gokbakar", "turkan soray",
+    "ahmet mekin", "seher sevigen", "ayhan isik", "ferdi tayfur", "tarkan",
+    "sener sen", "kenan imirzalioglu", "haluk bilginer", "cuneyt arkin",
+    "gulsen bubikoglu", "hale soygazi", "necla nazir", "filiz akin",
+    "tamer yigit", "vahi ozturk", "sabahat akkiraz", "aydemir akbas",
+    "oktay kaynarca", "hulusi kentmen", "ilhan sesen", "belgin doruk",
+}
+
+
+def _yt_oyuncu_parcasi_mi(parca: str) -> bool:
+    """Parça yalnızca bilinen oyuncu adlarından mı oluşuyor?"""
+    adlar = [a for a in re.split(r"\s*(?:,|&|\bve\b|/|\+)\s*", parca or "") if a.strip()]
+    return bool(adlar) and all(
+        tr_sadelestir(a).strip() in _YT_OYUNCULAR for a in adlar)
+
+
+def _tr_baslik_yap(s: str) -> str:
+    """TAMAMI BÜYÜK yazılmış başlığı Türkçe kurallarıyla 'Baş Harfi Büyük' yapar."""
+    if not s or not s.isupper():
+        return s
+    kucuk = s.replace("I", "ı").replace("İ", "i").lower()
+    return " ".join(w[:1].replace("i", "İ").replace("ı", "I").upper() + w[1:]
+                    for w in kucuk.split())
+
+
+def youtube_film_adi_temizle(baslik: str) -> tuple[str, str]:
+    """
+    YouTube video başlığından FİLM ADI ve (varsa) YIL çıkarır.
+
+        "TOSUN PAŞA | Kemal Sunal Türk Filmi Full HD"  → ("Tosun Paşa", "")
+        "Hababam Sınıfı (1975) - Tek Parça"            → ("Hababam Sınıfı", "1975")
+
+    Amaç: TMDB'de afiş eşleşmesi ve aramada düzgün ad. Ham başlık ayrıca
+    `attrs["yt_baslik"]` içinde saklanır (arama ham başlığa da bakar).
+    """
+    ham = (baslik or "").strip()
+    if not ham:
+        return "", ""
+    m = _YT_YIL_RE.search(ham)
+    yil = m.group(1) if m else ""
+    # Köşeli parantez içi hep çöp; yuvarlak parantez içi yıl/çöp ise at
+    t = re.sub(r"\[[^\]]*\]", " ", ham)
+    t = re.sub(r"\(([^)]*)\)",
+               lambda mm: " " if (_YT_YIL_RE.search(mm.group(1))
+                                  or _YT_GURULTU.search(mm.group(1))) else mm.group(0), t)
+    parcalar = [p.strip() for p in re.split(r"\s*[|｜]\s*", t) if p.strip()]
+    secilen = ""
+    for p in parcalar:
+        # "Oyuncu - Film" gibi tireli parçalarda çöp olmayan ilk parçayı al
+        alt = [a.strip() for a in re.split(r"\s+[-–—]\s+", p) if a.strip()]
+        for a in alt:
+            temiz = _YT_GURULTU.sub(" ", a)
+            temiz = _YT_YIL_RE.sub(" ", temiz)
+            temiz = re.sub(r"(?i)\s+filmi?\s*$", "", temiz)
+            temiz = re.sub(r"\s+", " ", temiz).strip(" -–—:|,.·")
+            if len(temiz) >= 2 and not _yt_oyuncu_parcasi_mi(temiz):
+                secilen = temiz
+                break
+        if secilen:
+            break
+    if not secilen:
+        secilen = re.sub(r"\s+", " ", ham).strip()
+    return _tr_baslik_yap(secilen), yil
+
+
+def youtube_playlist_ayristir(url: str, kaynak: str = "YouTube",
+                               kategori: str | None = "youtube") -> tuple[list, str]:
+    """
+    YouTube playlist URL'sinden bölüm listesi üretir (yt-dlp ile).
+
+    Dönüş: (list[Icerik], hata_mesajı)
+
+    - `kaynak` kullanıcı verdiği görünen addır (ör. "A.B.İ (Diziler)").
+      Kart başlığı ve grup bu addan gelir; YouTube'un kendi playlist adı
+      yalnızca yedek olarak kullanılır.
+    - Tüm erişilebilir videolar eklenir (başlıksızlar "Bölüm N" olur).
+    """
+    import subprocess
+    import shutil
+    import json as _json
+
+    exe = shutil.which("yt-dlp") or shutil.which("yt-dlp.exe")
+    if not exe:
+        try:
+            from mpv_islem import ytdl_var_mi
+            exe = ytdl_var_mi()
+        except Exception:
+            exe = ""
+    if not exe:
+        return [], ("yt-dlp bulunamadı.\n\n"
+                    "Arch/CachyOS:  sudo pacman -S yt-dlp\n"
+                    "Debian/Ubuntu: sudo apt install yt-dlp\n"
+                    "Evrensel:      pip install -U yt-dlp")
+
+    # watch?v=...&list=PL... → saf playlist URL (tek video + kısmi liste olmasın)
+    pl_url = (url or "").strip()
+    m_list = re.search(r"[?&]list=([A-Za-z0-9_-]+)", pl_url)
+    if m_list:
+        pl_url = f"https://www.youtube.com/playlist?list={m_list.group(1)}"
+    # Kanal sayfası: /@handle veya /channel/ID — yt-dlp videos sekmesini tercih et
+    elif re.search(r"youtube\.com/@[\w.-]+", pl_url, re.I):
+        if "/videos" not in pl_url.lower():
+            pl_url = pl_url.rstrip("/") + "/videos"
+    elif re.search(r"youtube\.com/channel/([\w-]+)", pl_url, re.I):
+        if "/videos" not in pl_url.lower():
+            pl_url = pl_url.rstrip("/") + "/videos"
+
+    # Kullanıcının verdiği ad öncelikli (kartta görünen tek başlık)
+    seri_adi = (kaynak or "").strip() or "YouTube"
+
+    # -j : her satır bir JSON (flat-playlist ile tüm girdiler; -J bazen kısaltır)
+    cmd = [
+        exe, "--no-warnings", "--flat-playlist", "--ignore-errors",
+        "--yes-playlist", "-j",
+        pl_url,
+    ]
+    try:
+        r = subprocess.run(cmd, capture_output=True, text=True, timeout=240)
+    except subprocess.TimeoutExpired:
+        return [], "yt-dlp 240 sn içinde yanıt vermedi (playlist çok büyük olabilir)."
+    except Exception as e:
+        return [], f"yt-dlp çalıştırılamadı: {e}"
+
+    stdout = (r.stdout or "").strip()
+    if not stdout:
+        err = (r.stderr or "").strip().splitlines()
+        son = err[-1] if err else "bilinmeyen hata"
+        return [], f"yt-dlp playlist okuyamadı: {son[:240]}"
+
+    entries: list[dict] = []
+    yt_pl_title = ""
+    for line in stdout.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            obj = _json.loads(line)
+        except Exception:
+            continue
+        if not isinstance(obj, dict):
+            continue
+        # ara sıra playlist özeti satırı gelebilir
+        if obj.get("_type") == "playlist":
+            yt_pl_title = obj.get("title") or yt_pl_title
+            for ent in (obj.get("entries") or []):
+                if isinstance(ent, dict):
+                    entries.append(ent)
+            continue
+        entries.append(obj)
+        if not yt_pl_title:
+            yt_pl_title = obj.get("playlist_title") or yt_pl_title
+
+    # -j boş kaldıysa -J ile bir kez daha dene
+    if not entries:
+        cmd2 = [
+            exe, "--no-warnings", "--flat-playlist", "--ignore-errors",
+            "--yes-playlist", "-J",
+            pl_url,
+        ]
+        try:
+            r2 = subprocess.run(cmd2, capture_output=True, text=True, timeout=240)
+            if r2.stdout.strip():
+                veri = _json.loads(r2.stdout)
+                if isinstance(veri, dict):
+                    yt_pl_title = veri.get("title") or yt_pl_title
+                    entries = [e for e in (veri.get("entries") or []) if isinstance(e, dict)]
+                elif isinstance(veri, list):
+                    entries = [e for e in veri if isinstance(e, dict)]
+        except Exception:
+            pass
+
+    if not entries:
+        return [], "Playlist'te video bulunamadı (gizli/özel veya yt-dlp güncel değil)."
+
+    # Kullanıcı özel ad vermediyse YouTube başlığına düş
+    if seri_adi in ("YouTube", "YouTube Playlist", "") and yt_pl_title:
+        seri_adi = yt_pl_title.strip()
+
+    film_modu = (kategori or "") == "youtube_film"
+    kat = "youtube_film" if film_modu else "youtube"
+    simdi = time.time()
+    sonuc: list[Icerik] = []
+    sira = 0
+    for ent in entries:
+        if not isinstance(ent, dict):
+            continue
+        # kesin silinmiş / private
+        title_raw = (ent.get("title") or ent.get("fulltitle") or "").strip()
+        low = title_raw.lower()
+        if low in ("[private video]", "[deleted video]", "[unavailable video]"):
+            continue
+        if ent.get("available") is False and not ent.get("id"):
+            continue
+
+        vid = ent.get("id") or ""
+        if not vid:
+            u = (ent.get("url") or ent.get("webpage_url") or "").strip()
+            m = re.search(r"(?:v=|/shorts/|youtu\.be/)([A-Za-z0-9_-]{6,})", u)
+            if m:
+                vid = m.group(1)
+        if not vid and not (ent.get("url") or "").startswith("http"):
+            continue
+
+        # Film modunda çok kısa videolar (fragman/klip) filme sayılmaz
+        if film_modu:
+            try:
+                sure_sn = float(ent.get("duration") or 0)
+            except (TypeError, ValueError):
+                sure_sn = 0
+            if 0 < sure_sn < 600:
+                continue
+
+        sira += 1
+        title = title_raw if title_raw else f"Bölüm {sira}"
+
+        if isinstance(vid, str) and vid.startswith("http"):
+            vurl = vid
+        elif vid:
+            vurl = f"https://www.youtube.com/watch?v={vid}"
+        else:
+            vurl = (ent.get("url") or "").strip()
+        if not vurl:
+            continue
+
+        if film_modu:
+            # Her video BAĞIMSIZ bir film: kendi adı, kendi kartı
+            film_adi, film_yil = youtube_film_adi_temizle(title)
+            film_adi = film_adi or title
+            ad = f"{film_adi} ({film_yil})" if film_yil else film_adi
+        else:
+            # Aynı seri adı + sıra → tek kartta birleşir
+            # (video başlığındaki SxxExx kart bölünmesine yol açmasın)
+            ad = f"{seri_adi} S01E{sira:02d} - {title}"
+
+        logo = ""
+        thumbs = ent.get("thumbnails") or []
+        if thumbs and isinstance(thumbs, list):
+            logo = (thumbs[-1] or {}).get("url") or ""
+        if not logo and vid and not str(vid).startswith("http"):
+            logo = f"https://i.ytimg.com/vi/{vid}/hqdefault.jpg"
+
+        e = Icerik(
+            ad=ad,
+            url=vurl,
+            logo=logo,
+            grup=seri_adi[:80],
+            kategori=kat,
+            kaynak=seri_adi,
+            eklenme=simdi,
+        )
+        if film_modu:
+            e.attrs = {"yt_baslik": title_raw or title}
+        sonuc.append(e)
+
+    if not sonuc:
+        return [], "Playlist'te eklenebilir video bulunamadı."
+    return sonuc, ""
+
+
+
+def domino_json_ayristir(metin: str, kaynak: str = "Domino JSON") -> list[Icerik]:
+    """
+    Domino / özel JSON liste formatını Icerik listesine çevirir.
+
+    Desteklenen üst seviye anahtarlar:
+        live_categories + live_channels
+        movie_categories + movies  (veya filmler)
+        series_categories + series (seasons/episodes veya doğrudan episodes)
+        home_rows (yalnızca UI; içerik üretmez)
+
+    Her kanal/film/bölüm için stream_url, logo, header, user_agent, referer
+    ve alternatif URL'ler korunur.
+    """
+    sonuc: list[Icerik] = []
+    if not metin or not metin.strip():
+        return sonuc
+    try:
+        data = json.loads(metin)
+    except Exception:
+        return sonuc
+    if not isinstance(data, dict):
+        return sonuc
+
+    simdi = time.time()
+
+    def _str(v, varsayilan: str = "") -> str:
+        if v is None:
+            return varsayilan
+        return str(v).strip() or varsayilan
+
+    def _vlcopt(ch: dict) -> list:
+        headers = ch.get("headers") if isinstance(ch.get("headers"), dict) else {}
+        ua = (_str(ch.get("user_agent"))
+              or _str(headers.get("User-Agent"))
+              or _str(headers.get("user-agent")))
+        referer = (_str(ch.get("referer"))
+                   or _str(headers.get("Referer"))
+                   or _str(headers.get("referer")))
+        opt = []
+        if ua:
+            opt.append(f"http-user-agent={ua}")
+        if referer:
+            opt.append(f"http-referrer={referer}")
+        for hk, hv in headers.items():
+            hl = (hk or "").lower()
+            if hl in ("user-agent", "referer", "referrer"):
+                continue
+            if hv:
+                opt.append(f"http-header={hk}: {hv}")
+        return opt
+
+    def _alts(ch: dict, ad: str, logo: str, grup: str, kategori: str) -> list:
+        alts = []
+        ham = ch.get("alternative_stream_urls") or ch.get("backup_urls") or ch.get("sources") or []
+        if not isinstance(ham, list):
+            return alts
+        for a in ham:
+            if isinstance(a, str):
+                aurl = a.strip()
+            elif isinstance(a, dict):
+                aurl = _str(a.get("stream_url") or a.get("url"))
+            else:
+                continue
+            if aurl:
+                alts.append(Icerik(ad=ad, url=aurl, logo=logo, grup=grup,
+                                   kategori=kategori, kaynak=kaynak, eklenme=simdi))
+        return alts
+
+    # ── Canlı kanallar ──────────────────────────────────────────────
+    cat_map: dict[str, str] = {}
+    for c in (data.get("live_categories") or []):
+        if not isinstance(c, dict):
+            continue
+        cid = _str(c.get("id") or c.get("category_id") or c.get("cat_id"))
+        cname = _str(c.get("name") or c.get("title") or c.get("category_name"), "Canlı")
+        if cid:
+            cat_map[cid] = cname
+
+    for ch in (data.get("live_channels") or []):
+        if not isinstance(ch, dict):
+            continue
+        url = _str(ch.get("stream_url") or ch.get("url") or ch.get("stream"))
+        if not url:
+            continue
+        ad = _str(ch.get("name") or ch.get("title") or ch.get("channel_name"), "Kanal")
+        logo = _str(ch.get("logo") or ch.get("stream_icon") or ch.get("logo_url") or ch.get("icon"))
+        cat_id = _str(ch.get("category_id") or ch.get("cat_id") or ch.get("category"))
+        grup = cat_map.get(cat_id) or _str(ch.get("group") or ch.get("group_title"), "Canlı TV")
+        e = Icerik(
+            ad=ad, url=url, logo=logo, grup=grup, kategori="live",
+            kaynak=kaynak, vlcopt=_vlcopt(ch), eklenme=simdi,
+        )
+        e.alternatifler = _alts(ch, ad, logo, grup, "live")
+        sonuc.append(e)
+
+    # ── Filmler ─────────────────────────────────────────────────────
+    movie_cat: dict[str, str] = {}
+    for c in (data.get("movie_categories") or data.get("vod_categories") or []):
+        if not isinstance(c, dict):
+            continue
+        cid = _str(c.get("id") or c.get("category_id"))
+        cname = _str(c.get("name") or c.get("title"), "Filmler")
+        if cid:
+            movie_cat[cid] = cname
+
+    for m in (data.get("movies") or data.get("filmler") or data.get("vod") or []):
+        if not isinstance(m, dict):
+            continue
+        url = _str(m.get("stream_url") or m.get("url") or m.get("movie_url") or m.get("video_url"))
+        if not url:
+            continue
+        ad = _str(m.get("name") or m.get("title") or m.get("movie_name"), "Film")
+        logo = _str(m.get("logo") or m.get("cover") or m.get("poster") or m.get("stream_icon") or m.get("poster_url"))
+        cat_id = _str(m.get("category_id") or m.get("cat_id") or m.get("category"))
+        grup = movie_cat.get(cat_id) or _str(m.get("group") or m.get("genre"), "Filmler")
+        yil = _str(m.get("year") or m.get("release_date") or m.get("releaseYear"))[:4]
+        if yil and yil not in ad:
+            ad = f"{ad} ({yil})"
+        e = Icerik(
+            ad=ad, url=url, logo=logo, grup=grup, kategori="movie",
+            kaynak=kaynak, vlcopt=_vlcopt(m), eklenme=simdi,
+        )
+        e.alternatifler = _alts(m, ad, logo, grup, "movie")
+        sonuc.append(e)
+
+    # ── Diziler ─────────────────────────────────────────────────────
+    series_cat: dict[str, str] = {}
+    for c in (data.get("series_categories") or data.get("dizi_categories") or []):
+        if not isinstance(c, dict):
+            continue
+        cid = _str(c.get("id") or c.get("category_id"))
+        cname = _str(c.get("name") or c.get("title"), "Diziler")
+        if cid:
+            series_cat[cid] = cname
+
+    for s in (data.get("series") or data.get("diziler") or []):
+        if not isinstance(s, dict):
+            continue
+        dizi_adi = _str(s.get("name") or s.get("title") or s.get("series_name"), "Dizi")
+        logo = _str(s.get("logo") or s.get("cover") or s.get("poster") or s.get("stream_icon") or s.get("poster_url"))
+        cat_id = _str(s.get("category_id") or s.get("cat_id") or s.get("category"))
+        grup = (series_cat.get(cat_id)
+                or _str(s.get("group") or s.get("genre") or s.get("platform") or s.get("platform_name"), "Diziler"))
+
+        seasons = s.get("seasons") or s.get("season") or []
+        if isinstance(seasons, dict):
+            seasons = list(seasons.values())
+        if not isinstance(seasons, list):
+            seasons = []
+
+        for sezon in seasons:
+            if not isinstance(sezon, dict):
+                continue
+            try:
+                sezon_no = int(sezon.get("season_number") or sezon.get("number") or sezon.get("season") or 1)
+            except (TypeError, ValueError):
+                sezon_no = 1
+            episodes = sezon.get("episodes") or sezon.get("episode") or []
+            if isinstance(episodes, dict):
+                episodes = list(episodes.values())
+            if not isinstance(episodes, list):
+                continue
+            for bolum in episodes:
+                if not isinstance(bolum, dict):
+                    continue
+                url = _str(bolum.get("stream_url") or bolum.get("url") or bolum.get("video_url"))
+                if not url:
+                    continue
+                try:
+                    bolum_no = int(bolum.get("episode_number") or bolum.get("number") or bolum.get("episode") or 1)
+                except (TypeError, ValueError):
+                    bolum_no = 1
+                bolum_adi = _str(bolum.get("name") or bolum.get("title"), f"Bölüm {bolum_no}")
+                ad = f"{dizi_adi} S{sezon_no:02d}E{bolum_no:02d} - {bolum_adi}"
+                e = Icerik(
+                    ad=ad, url=url, logo=logo, grup=grup, kategori="series",
+                    kaynak=kaynak, vlcopt=_vlcopt(bolum) or _vlcopt(s), eklenme=simdi,
+                )
+                e.alternatifler = _alts(bolum, ad, logo, grup, "series")
+                sonuc.append(e)
+
+        if not seasons:
+            episodes = s.get("episodes") or []
+            if isinstance(episodes, dict):
+                episodes = list(episodes.values())
+            if isinstance(episodes, list):
+                for i, bolum in enumerate(episodes, 1):
+                    if not isinstance(bolum, dict):
+                        continue
+                    url = _str(bolum.get("stream_url") or bolum.get("url") or bolum.get("video_url"))
+                    if not url:
+                        continue
+                    try:
+                        bolum_no = int(bolum.get("episode_number") or bolum.get("number") or i)
+                    except (TypeError, ValueError):
+                        bolum_no = i
+                    bolum_adi = _str(bolum.get("name") or bolum.get("title"), f"Bölüm {bolum_no}")
+                    ad = f"{dizi_adi} S01E{bolum_no:02d} - {bolum_adi}"
+                    e = Icerik(
+                        ad=ad, url=url, logo=logo, grup=grup, kategori="series",
+                        kaynak=kaynak, vlcopt=_vlcopt(bolum) or _vlcopt(s), eklenme=simdi,
+                    )
+                    e.alternatifler = _alts(bolum, ad, logo, grup, "series")
+                    sonuc.append(e)
+
+    return sonuc
+
 
 
 def m3u_uret(icerikler: list[Icerik]) -> str:
@@ -683,6 +1253,33 @@ class Depo:
                           key=lambda e: sira.get(e.url, 9999))
         if kategori == "all":
             return list(self.icerikler)
+        if kategori in ("youtube", "youtube_film", "youtube_dizi"):
+            # youtube_film: playlist'teki HER video ayrı film kartı
+            # youtube_dizi: playlist tek dizi kartı (eski "youtube" kayıtları dahil)
+            # youtube     : ikisi birden (eski uyumluluk)
+            def _yt_mi(e: Icerik) -> bool:
+                if (e.kategori or "").lower() in ("youtube", "youtube_film"):
+                    return True
+                u = (e.url or "").lower()
+                if "youtube.com" in u or "youtu.be" in u:
+                    return True
+                k = (e.kaynak or "").lower()
+                return "youtube" in k
+            yt = [e for e in self.icerikler if _yt_mi(e)]
+            if kategori == "youtube_film":
+                return [e for e in yt if (e.kategori or "").lower() == "youtube_film"]
+            if kategori == "youtube_dizi":
+                return [e for e in yt if (e.kategori or "").lower() != "youtube_film"]
+            return yt
+        # Filmler/Diziler sekmelerinde YouTube içerikleri tekrar görünmesin
+        if kategori in ("movie", "series", "anime", "live"):
+            return [
+                e for e in self.icerikler
+                if e.kategori == kategori
+                and "youtube.com" not in (e.url or "").lower()
+                and "youtu.be" not in (e.url or "").lower()
+                and (e.kategori or "").lower() != "youtube"
+            ]
         return [e for e in self.icerikler if e.kategori == kategori]
 
     def ara(self, sorgu: str, kapsam: list[Icerik] | None = None) -> list[Icerik]:
@@ -894,6 +1491,67 @@ def diziye_grupla(icerikler: list[Icerik]) -> list[dict]:
     gruplar: dict[str, dict] = {}
     tekler: list[dict] = []
     for e in icerikler:
+        # Film / canlı: adında "Bölüm" veya SxxExx geçse bile DİZİ gibi
+        # gruplama. Aksi halde liste görünümünde "1 bölüm" yazıp özet
+        # kayboluyordu.
+        kat = (e.kategori or "").lower()
+        if kat in ("movie", "live", "film", "youtube_film"):
+            tekler.append(e)
+            continue
+
+        # YouTube (M3U / kanal / playlist):
+        #  - M3U: her dizi kendi kartı (dizi adı / group-title / SxxExx kökü)
+        #  - Kanal-playlist import: aynı kaynak adı → tek kart
+        # Dosya adı (yt-diziler.m3u) tek kart olmasın!
+        u_low = (e.url or "").lower()
+        yt_mi = (
+            kat == "youtube"
+            or "youtube.com" in u_low
+            or "youtu.be" in u_low
+        )
+        if yt_mi:
+            kok = (e.dizi_kok_anahtari() or "").strip()
+            grup_ad = (e.grup or "").strip()
+            kaynak_ad = (e.kaynak or "").strip()
+            # Genre benzeri group-title'ları dizi adı sanma
+            _genre = {
+                "drama", "comedy", "action", "thriller", "horror", "romance",
+                "documentary", "animation", "anime", "family", "crime", "war",
+                "sci-fi", "fantasy", "mystery", "western", "history", "music",
+                "sport", "reality", "talk", "news", "kids", "film", "movie",
+                "dizi", "series", "tv", "other", "genel", "various",
+            }
+            if kok:
+                seri = kok
+            elif grup_ad and tr_sadelestir(grup_ad).lower() not in _genre:
+                # "Kurtlar Vadisi (2003)" gibi gerçek dizi adı
+                seri = grup_ad
+            elif kaynak_ad and not kaynak_ad.lower().endswith(
+                    (".m3u", ".m3u8", ".txt", ".json")):
+                # Kullanıcının verdiği kanal/playlist adı (dosya adı değil)
+                seri = kaynak_ad
+            else:
+                seri = kok or grup_ad or (e.temiz_ad() or e.ad or "YouTube").strip()
+            seri = seri.strip() or "YouTube"
+            norm = "yt::" + tr_sadelestir(seri)
+            g = gruplar.setdefault(norm, {
+                "baslik": seri,
+                "bolumler": [],
+                "logo": e.logo,
+                "kategori": "youtube",
+                "tekil": False,
+                "kaynak": seri,
+                "anahtar": norm,
+            })
+            g["bolumler"].append(e)
+            # TMDB / tvg-logo afişi koru (ilk dolu logo)
+            if e.logo and (not g["logo"] or "ytimg.com" in (g["logo"] or "")
+                           and "tmdb.org" in (e.logo or "")):
+                g["logo"] = e.logo
+            if seri and (not g["baslik"] or len(seri) < len(g["baslik"])):
+                g["baslik"] = seri
+            continue
+
         # Kök ad (kaynak/grup bağımsız); yoksa eski anahtara düş.
         kok = (e.dizi_kok_anahtari() or "").strip()
         anahtar = kok or e.dizi_anahtari()
@@ -973,6 +1631,10 @@ def diziye_grupla(icerikler: list[Icerik]) -> list[dict]:
             g["kaynak"] = f"{len(grup_adlari)} kaynak"
         elif grup_adlari:
             g["kaynak"] = grup_adlari[0]
+        # Tek parçalı ve film kategorili gruplar dizi gibi görünmesin
+        gkat = (g.get("kategori") or "").lower()
+        if len(g["bolumler"]) <= 1 and gkat not in ("series", "anime"):
+            g["tekil"] = True
     return list(gruplar.values()) + film_kartlari
 
 

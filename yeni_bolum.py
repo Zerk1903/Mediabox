@@ -107,7 +107,7 @@ def kontrol_et(depo, istemci, sinir: int = 40) -> list[dict]:
 
         sayac += 1
         try:
-            d = istemci.detay(tid, True)
+            d = istemci.detay(tid, True, taze=True)
         except Exception:
             continue
         if not d:
