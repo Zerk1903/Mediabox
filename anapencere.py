@@ -22,17 +22,19 @@ from PyQt6.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
                              QGridLayout, QStackedWidget, QFileDialog,
                              QMessageBox, QFrame, QMenu, QInputDialog, QDialog,
                              QListWidget, QListWidgetItem, QComboBox, QCheckBox,
-                             QProgressBar, QSizePolicy, QApplication, QTextEdit)
+                             QProgressBar, QSizePolicy, QApplication, QTextEdit,
+                             QSpinBox)
 
 from mediabox_qt import (Depo, Icerik, m3u_ayristir, m3u_uret, temiz_baslik, kategori_tahmin,
                          tr_sadelestir, diziye_grupla, UCRETSIZ_KAYNAKLAR, TEMALAR, tema_bul,
+                         youtube_playlist_mi, youtube_playlist_ayristir, youtube_video_mi,
                          veri_klasoru, html_verisi_ice_aktar, APP_ADI, APP_SURUM)
 import arayuz
 from tmdb import TmdbIstemci, afis_url, AFIS_BOY
 from detay import (ZenginDetay, OyuncuSayfasi, SaglayiciYonetici,
                    TmdbEsleDialog, OtoUrlDialog, TmdbKart, TmdbRaf, GorselIsci,
                    isci_baslat, saglayicilari_hazirla)
-from arayuz import (Kart, Raf, Vitrin, Oynatici, R_ARKA, R_YUZEY, R_YUZEY2,
+from arayuz import (Kart, ListeSatiri, Raf, Vitrin, Oynatici, R_ARKA, R_YUZEY, R_YUZEY2,
                     R_CIZGI, R_METIN, R_SOLUK, R_VURGU, KART_EN, KART_BOY,
                     sure_yaz, stil)
 
@@ -42,6 +44,8 @@ SEKMELER = [
     ("series",    "Diziler"),
     ("anime",     "Animasyon"),
     ("live",      "Canlı TV"),
+    ("youtube_film", "YouTube Filmler"),
+    ("youtube_dizi", "YouTube Diziler"),
     ("favorites", "Favoriler"),
     ("queue",     "Sonra İzle"),
     ("recent",    "Son İzlenenler"),
@@ -60,6 +64,15 @@ class Indirici(QThread):
         self.url = url
 
     def run(self):
+        # YouTube sayfası HTML'si M3U değildir — burada indirme.
+        # Playlist için YoutubePlaylistIsci kullanın.
+        try:
+            from mediabox_qt import youtube_playlist_mi
+            if youtube_playlist_mi(self.url) or "youtube.com" in self.url.lower() or "youtu.be" in self.url.lower():
+                self.bitti.emit("", "youtube-redirect")
+                return
+        except Exception:
+            pass
         try:
             import requests
             self.ilerleme.emit("Bağlanılıyor…")
@@ -74,6 +87,33 @@ class Indirici(QThread):
             self.bitti.emit(b"".join(parcalar).decode("utf-8", "ignore"), "")
         except Exception as e:
             self.bitti.emit("", f"{type(e).__name__}: {e}")
+
+
+class YoutubePlaylistIsci(QThread):
+    """
+    YouTube playlist'ini yt-dlp ile çeker → list[Icerik].
+
+    kategori="youtube_film" → her video ayrı film kartı
+    kategori="youtube"      → playlist tek dizi kartı (bölümler içinde)
+    """
+    bitti = pyqtSignal(list, str)   # (icerikler, hata)
+    ilerleme = pyqtSignal(str)
+
+    def __init__(self, url: str, kaynak: str = "YouTube", kategori: str = "youtube"):
+        super().__init__()
+        self.url = url
+        self.kaynak = kaynak
+        self.kategori = kategori
+
+    def run(self):
+        self.ilerleme.emit("YouTube playlist yt-dlp ile okunuyor…")
+        try:
+            from mediabox_qt import youtube_playlist_ayristir
+            liste, hata = youtube_playlist_ayristir(
+                self.url, kaynak=self.kaynak, kategori=self.kategori)
+            self.bitti.emit(liste or [], hata or "")
+        except Exception as e:
+            self.bitti.emit([], f"{type(e).__name__}: {e}")
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -290,6 +330,8 @@ class Izgara(QWidget):
         self.gruplar: list[dict] = []
         self.sayfa = 0
         self.SAYFA_ADET = 120
+        # görünüm: "afis" | "liste"
+        self.gorunum = depo.ayarlar.get("izgara_gorunum", "afis")
 
         v = QVBoxLayout(self); v.setContentsMargins(0, 0, 0, 0); v.setSpacing(6)
         ust = QHBoxLayout(); ust.setContentsMargins(28, 10, 28, 0)
@@ -305,7 +347,20 @@ class Izgara(QWidget):
             "Yıl (yeni)", "Yıl (eski)",
         ])
         self.c_sirala.currentIndexChanged.connect(self._filtre)
+
+        # Görünüm değiştirici
+        self.b_afis = QPushButton("▦  Afiş")
+        self.b_liste = QPushButton("☰  Liste")
+        for b in (self.b_afis, self.b_liste):
+            b.setFixedHeight(32)
+            b.setCursor(Qt.CursorShape.PointingHandCursor)
+        self.b_afis.clicked.connect(lambda: self._gorunum_sec("afis"))
+        self.b_liste.clicked.connect(lambda: self._gorunum_sec("liste"))
+        self._gorunum_dugme_stil()
+
         ust.addWidget(self.l_baslik); ust.addWidget(self.l_adet); ust.addStretch()
+        ust.addWidget(self.b_afis); ust.addWidget(self.b_liste)
+        ust.addSpacing(10)
         ust.addWidget(QLabel("Grup:")); ust.addWidget(self.c_grup)
         ust.addWidget(QLabel("Dil:")); ust.addWidget(self.c_dil)
         ust.addWidget(QLabel("Sırala:")); ust.addWidget(self.c_sirala)
@@ -356,8 +411,36 @@ class Izgara(QWidget):
             self._ciz()
 
     def _sutun_sayisi(self) -> int:
+        if self.gorunum == "liste":
+            return 1
         genislik = max(1, self.kaydir.viewport().width() - 56)
         return max(2, genislik // (KART_EN + 16))
+
+    def _gorunum_sec(self, mod: str):
+        if mod == self.gorunum:
+            return
+        self.gorunum = mod
+        self.depo.ayarlar["izgara_gorunum"] = mod
+        try:
+            self.depo.kaydet()
+        except Exception:
+            pass
+        self._gorunum_dugme_stil()
+        self.sayfa = 0
+        self._ciz()
+
+    def _gorunum_dugme_stil(self):
+        aktif = (
+            f"QPushButton{{background:{R_VURGU};border:0;border-radius:8px;"
+            f"color:#fff;font-weight:700;padding:4px 12px;}}"
+        )
+        pasif = (
+            f"QPushButton{{background:{R_YUZEY2};border:1px solid {R_CIZGI};"
+            f"border-radius:8px;color:{R_METIN};padding:4px 12px;}}"
+            f"QPushButton:hover{{background:#262a35;}}"
+        )
+        self.b_afis.setStyleSheet(aktif if self.gorunum == "afis" else pasif)
+        self.b_liste.setStyleSheet(aktif if self.gorunum == "liste" else pasif)
 
     def _filtre(self):
         icerik = list(self._ham)
@@ -395,6 +478,9 @@ class Izgara(QWidget):
         self.sayfa += 1
         self._ciz(ekle=True)
 
+    def _sayfa_adet(self) -> int:
+        return 40 if self.gorunum == "liste" else self.SAYFA_ADET
+
     def _ciz(self, ekle: bool = False):
         if not ekle:
             while self.izgara.count():
@@ -404,13 +490,18 @@ class Izgara(QWidget):
                     w.hide(); w.setParent(None); w.deleteLater()
         sutun = self._sutun_sayisi()
         self._son_sutun = sutun
-        bas = self.sayfa * self.SAYFA_ADET
-        dilim = self.gruplar[bas: bas + self.SAYFA_ADET]
+        adet = self._sayfa_adet()
+        bas = self.sayfa * adet
+        dilim = self.gruplar[bas: bas + adet]
         for i, g in enumerate(dilim):
             k = bas + i
-            self.izgara.addWidget(Kart(g, self.depo, self._tiklandi), k // sutun, k % sutun)
+            if self.gorunum == "liste":
+                w = ListeSatiri(g, self.depo, self._tiklandi)
+                self.izgara.addWidget(w, k, 0)
+            else:
+                self.izgara.addWidget(Kart(g, self.depo, self._tiklandi), k // sutun, k % sutun)
         self.l_adet.setText(f"{len(self.gruplar)} içerik")
-        self.b_daha.setVisible(bas + self.SAYFA_ADET < len(self.gruplar))
+        self.b_daha.setVisible(bas + adet < len(self.gruplar))
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -571,6 +662,7 @@ class AnaPencere(QMainWindow):
         self._yenileme_zaman.timeout.connect(self._otomatik_yenile)
         self._yenileme_zaman.start()
         QTimer.singleShot(8000, self._otomatik_yenile)
+        QTimer.singleShot(1500, lambda: self.cop_kayitlari_temizle(sessiz=True))
         # Yeni bölüm taraması: açılıştan 20 sn sonra bir kez, sonra 6 saatte bir
         # (modülün kendi 12 saatlik kilidi gereksiz istekleri zaten engeller).
         self._zil_tazele()
@@ -709,7 +801,9 @@ class AnaPencere(QMainWindow):
         self.raf_v.addWidget(self._tmdb_raf_yeri)
         QTimer.singleShot(150, self._tmdb_raflari_yukle)
         for anahtar, ad in (("movie", "🎬  Filmler"), ("series", "📺  Diziler"),
-                            ("anime", "🎨  Animasyon"), ("live", "📡  Canlı TV")):
+                            ("anime", "🎨  Animasyon"), ("live", "📡  Canlı TV"),
+                            ("youtube_film", "▶  YouTube Filmler"),
+                            ("youtube_dizi", "▶  YouTube Diziler")):
             ic = d.kategoriye_gore(anahtar)
             if ic:
                 self.raf_v.addWidget(Raf(ad, diziye_grupla(ic[:60]), d, self.detay_ac))
@@ -1319,6 +1413,7 @@ class AnaPencere(QMainWindow):
         m = QMenu(self)
         m.addAction("📂  M3U dosyası aç…", self.m3u_ac)
         m.addAction("🌐  Adresten yükle…", self.url_yukle)
+        m.addAction("📋  JSON URL ekle (Domino)…", self.json_url_yukle)
         m.addAction("📡  Xtream Codes…", self.xtream_ekle)
         m.addAction("🔗  Tek video/URL ekle…", self.tekli_video_ekle)
         m.addAction("📁  Klasör tara…", self.klasor_tara)
@@ -1331,6 +1426,7 @@ class AnaPencere(QMainWindow):
         m.addAction("📥  HTML sürümünden içe aktar…", self.html_aktar)
         m.addSeparator()
         m.addAction("🔍  Ölü linkleri kontrol et…", self.link_kontrol)
+        m.addAction("🧹  Çöp kayıtları temizle (HTML artığı)", self.cop_kayitlari_temizle)
         m.addAction("🗑  Tüm içeriği temizle", self.temizle)
         m.exec(self.sender().mapToGlobal(self.sender().rect().bottomLeft()))
 
@@ -1349,18 +1445,239 @@ class AnaPencere(QMainWindow):
         self._icerik_ekle(metin, Path(yol).name)
 
     def url_yukle(self):
-        url, ok = QInputDialog.getText(self, "Adresten yükle", "M3U adresi:")
+        url, ok = QInputDialog.getText(
+            self, "Adresten yükle",
+            "M3U / JSON / YouTube playlist adresi:")
         if not (ok and url.strip()):
             return
         url = url.strip()
+        # YouTube playlist veya video
+        try:
+            from mediabox_qt import youtube_playlist_mi, youtube_video_mi
+        except Exception:
+            youtube_playlist_mi = lambda u: False
+            youtube_video_mi = lambda u: False
+        if youtube_playlist_mi(url) or youtube_video_mi(url):
+            self._youtube_kaynak_ekle(url, kaynak_adi="YouTube Playlist")
+            return
         self.statusBar().showMessage("İndiriliyor…")
         self._indirici = Indirici(url)
         self._indirici.ilerleme.connect(lambda s: self.statusBar().showMessage(s))
         def bitti(metin, hata):
             if hata:
+                if hata == "youtube-redirect":
+                    self._youtube_kaynak_ekle(url, kaynak_adi="YouTube")
+                    return
                 QMessageBox.critical(self, "İndirilemedi", hata)
                 self._durum_yaz(); return
             self._icerik_ekle(metin, url, url_kaynak=url)
+        self._indirici.bitti.connect(bitti)
+        self._indirici.start()
+
+
+    def cop_kayitlari_temizle(self, sessiz: bool = False) -> int:
+        """
+        HTML/JS artığı olarak eklenmiş sahte kartları siler.
+        (YouTube sayfası M3U sanıldığında oluşan çöp)
+        """
+        from mediabox_qt import _cop_ad_mi, _gecerli_akış_url
+        once = len(self.depo.icerikler)
+        temiz = []
+        for e in self.depo.icerikler:
+            if _cop_ad_mi(e.ad or ""):
+                continue
+            if e.url and not _gecerli_akış_url(e.url):
+                continue
+            # youtube.com HTML path çöpleri
+            u = (e.url or "").lower()
+            if "youtube.com" in u and ("/youtubei/" in u or "generate_204" in u):
+                continue
+            temiz.append(e)
+        silinen = once - len(temiz)
+        if silinen:
+            self.depo.icerikler = temiz
+            self.depo.kaydet()
+            if not sessiz:
+                self.sekme_ac(self.aktif_sekme)
+                self._durum_yaz()
+                QMessageBox.information(
+                    self, "Çöp temizlendi",
+                    f"{silinen} sahte kayıt silindi.\n"
+                    f"Kalan: {len(temiz)}")
+            else:
+                self.statusBar().showMessage(
+                    f"🧹 {silinen} çöp kayıt temizlendi", 5000)
+        elif not sessiz:
+            QMessageBox.information(self, "Temizlik", "Çöp kayıt bulunamadı.")
+        return silinen
+
+    _YT_FILM_KATLAR = {"youtube_film", "movie", "film"}
+    _YT_DIZI_KATLAR = {"youtube_dizi", "youtube", "series", "anime", "dizi"}
+
+    def _youtube_tur_coz(self, kategori, ad: str):
+        """
+        Playlist film mi dizi mi? → "youtube_film" | "youtube" | None (iptal).
+
+        Kategori belliyse sormaz (movie → film, series/anime → dizi);
+        belli değilse ("auto", boş) kullanıcıya sorar.
+        """
+        k = str(kategori or "").strip().lower()
+        if k in self._YT_FILM_KATLAR:
+            return "youtube_film"
+        if k in self._YT_DIZI_KATLAR:
+            return "youtube"
+        kutu = QMessageBox(self)
+        kutu.setWindowTitle("YouTube playlist türü")
+        kutu.setText(f"“{ad}” playlist'inde ne var?")
+        kutu.setInformativeText(
+            "Filmler: her video ayrı afişli film kartı olur, tek tek aranabilir.\n"
+            "Dizi: playlist tek dizi kartı olur, bölümler içine girince görünür.")
+        b_film = kutu.addButton("🎬  Filmler", QMessageBox.ButtonRole.AcceptRole)
+        b_dizi = kutu.addButton("📺  Dizi", QMessageBox.ButtonRole.AcceptRole)
+        kutu.addButton("İptal", QMessageBox.ButtonRole.RejectRole)
+        kutu.exec()
+        if kutu.clickedButton() is b_film:
+            return "youtube_film"
+        if kutu.clickedButton() is b_dizi:
+            return "youtube"
+        return None
+
+    def _youtube_kaynak_ekle(self, url: str, kaynak_adi: str = "",
+                              kategori: str | None = None):
+        """
+        YouTube playlist URL'sini yt-dlp ile çeker.
+
+        Film playlist'i → "YouTube Filmler" sekmesi, her video ayrı kart.
+        Dizi playlist'i → "YouTube Diziler" sekmesi, tek dizi kartı.
+        """
+        url = (url or "").strip()
+        if not url:
+            return
+        ad = kaynak_adi or "YouTube Playlist"
+        tur = self._youtube_tur_coz(kategori, ad)
+        if tur is None:
+            return
+        film = tur == "youtube_film"
+        self.statusBar().showMessage(
+            f"YouTube {'film' if film else 'dizi'} playlist'i okunuyor: {ad}…")
+        self._yt_isci = YoutubePlaylistIsci(url, kaynak=ad, kategori=tur)
+        self._yt_isci.ilerleme.connect(lambda s: self.statusBar().showMessage(s))
+
+        def bitti(liste, hata, _ad=ad, _url=url, _tur=tur, _film=film):
+            if hata:
+                QMessageBox.critical(
+                    self, "YouTube playlist",
+                    f"Playlist eklenemedi:\n\n{hata}")
+                self._durum_yaz()
+                return
+            if not liste:
+                QMessageBox.warning(self, "YouTube", "Playlist boş döndü.")
+                self._durum_yaz()
+                return
+            # Kaynak kaydı (kategori saklanır: otomatik yenileme aynı modda çalışsın)
+            bulundu = False
+            for kk in self.depo.kaynaklar:
+                if kk.get("url") == _url or kk.get("ad") == _ad:
+                    kk["url"] = _url
+                    kk["ad"] = _ad
+                    kk["tur"] = "youtube"
+                    kk["kategori"] = _tur
+                    kk["ucretsiz"] = True
+                    kk["zaman"] = time.time()
+                    kk["adet"] = len(liste)
+                    bulundu = True
+                    break
+            if not bulundu:
+                self.depo.kaynaklar.append({
+                    "ad": _ad, "tur": "youtube", "kategori": _tur, "url": _url,
+                    "adet": len(liste), "zaman": time.time(),
+                    "ucretsiz": True, "kullanici": True,
+                })
+            # Aynı playlist önceden başka modda (dizi↔film) eklenmişse eskiyi
+            # değiştir; yoksa aynı URL'ler "zaten var" diye atlanırdı.
+            donusum = any(e.kaynak == _ad and (e.kategori or "") != _tur
+                          for e in self.depo.icerikler)
+            self._listeye_ekle(liste, _ad, url_kaynak=_url, eskiyi_sil=donusum)
+            sekme = "YouTube Filmler" if _film else "YouTube Diziler"
+            self.statusBar().showMessage(
+                f"▶ YouTube: {len(liste)} {'film' if _film else 'bölüm'} "
+                f"eklendi ({_ad})", 7000)
+            QMessageBox.information(
+                self, "YouTube playlist",
+                f"“{_ad}” eklendi.\n\n"
+                + (f"{len(liste)} film tek tek kütüphaneye işlendi; "
+                   "her biri ayrı kart, arama ile bulunur.\n"
+                   if _film else
+                   f"{len(liste)} bölüm tek dizi kartına işlendi.\n")
+                + f"{sekme} sekmesinde görünür.")
+
+        self._yt_isci.bitti.connect(bitti)
+        self._yt_isci.start()
+
+    def json_url_yukle(self):
+        """
+        Domino tarzı JSON liste URL'si ekler.
+        GitHub raw, Dropbox dl=1, doğrudan JSON adresi desteklenir.
+        Kaynak 'json_url' olarak kaydedilir; otomatik yenileme de çalışır.
+        """
+        url, ok = QInputDialog.getText(
+            self, "JSON URL ekle (Domino)",
+            "JSON liste adresi:\n"
+            "(GitHub raw, Dropbox veya doğrudan .json linki)")
+        if not (ok and url.strip()):
+            return
+        url = url.strip()
+        if "github.com" in url and "/blob/" in url:
+            url = url.replace("github.com", "raw.githubusercontent.com").replace("/blob/", "/")
+        ad, ok2 = QInputDialog.getText(
+            self, "Kaynak adı",
+            "Bu kaynak listede nasıl görünsün?",
+            text="Domino Liste")
+        if not ok2:
+            return
+        ad = (ad or "").strip() or "Domino Liste"
+
+        self.statusBar().showMessage("JSON indiriliyor…")
+        self._indirici = Indirici(url)
+        self._indirici.ilerleme.connect(lambda s: self.statusBar().showMessage(s))
+
+        def bitti(metin, hata, _ad=ad, _url=url):
+            if hata:
+                QMessageBox.critical(self, "İndirilemedi", hata)
+                self._durum_yaz()
+                return
+            from mediabox_qt import domino_json_ayristir
+            yeni = domino_json_ayristir(metin, kaynak=_ad)
+            if not yeni:
+                self._icerik_ekle(metin, _ad, url_kaynak=_url)
+                return
+            # Önce kaynak kaydını json_url olarak ekle/güncelle
+            kayit = None
+            for k in self.depo.kaynaklar:
+                if k.get("ad") == _ad:
+                    kayit = k
+                    break
+            if kayit is None:
+                self.depo.kaynaklar.append({
+                    "ad": _ad, "tur": "json_url", "url": _url,
+                    "adet": 0, "zaman": time.time(),
+                })
+            else:
+                kayit["tur"] = "json_url"
+                kayit["url"] = _url
+                kayit["zaman"] = time.time()
+            self._listeye_ekle(yeni, _ad, url_kaynak=_url)
+            # tur'un url olarak ezilmemesi için tekrar işaretle
+            for k in self.depo.kaynaklar:
+                if k.get("ad") == _ad:
+                    k["tur"] = "json_url"
+                    k["url"] = _url
+                    k["adet"] = sum(1 for e in self.depo.icerikler if e.kaynak == _ad)
+                    break
+            self.depo.kaydet()
+            self.statusBar().showMessage(
+                f"✓ {_ad}: {len(yeni)} içerik JSON'dan eklendi", 7000)
+
         self._indirici.bitti.connect(bitti)
         self._indirici.start()
 
@@ -1627,7 +1944,234 @@ class AnaPencere(QMainWindow):
                         eklenme=time.time())
         self._listeye_ekle([icerik], "Tekli ekleme", url_kaynak=url)
 
+
+
+    def _yedek_sozluk(self) -> dict:
+        """Tam yedek JSON gövdesi (Dropbox / yerel aynı şema)."""
+        from mediabox_qt import _icerik_sozluk, APP_SURUM
+        self.depo.kaydet()
+        return {
+            "surum": APP_SURUM,
+            "yedek_turu": "tam",
+            "zaman": time.time(),
+            "icerikler": [_icerik_sozluk(x) for x in self.depo.icerikler],
+            "kaynaklar": self.depo.kaynaklar,
+            "favoriler": self.depo.favoriler,
+            "son_izlenen": self.depo.son_izlenen,
+            "ilerleme": self.depo.ilerleme,
+            "etiketler": self.depo.etiketler,
+            "kuyruk": self.depo.kuyruk,
+            "istatistik": self.depo.istatistik,
+            "ayarlar": self.depo.ayarlar,
+        }
+
+    def _yedekten_uygula(self, d: dict) -> None:
+        """Yedek sözlüğünü depoya yazar (Dropbox oturumu korunur)."""
+        from mediabox_qt import _icerikleri_coz
+        self.depo.icerikler = _icerikleri_coz(d.get("icerikler", []))
+        self.depo.kaynaklar = d.get("kaynaklar", [])
+        self.depo.favoriler = d.get("favoriler", [])
+        self.depo.son_izlenen = d.get("son_izlenen", [])
+        self.depo.ilerleme = d.get("ilerleme", {})
+        self.depo.etiketler = d.get("etiketler", {})
+        self.depo.kuyruk = d.get("kuyruk", [])
+        self.depo.istatistik = d.get("istatistik", {})
+        eski_key = self.depo.ayarlar.get("dropbox_app_key")
+        eski_rt = self.depo.ayarlar.get("dropbox_refresh_token")
+        eski_ad = self.depo.ayarlar.get("dropbox_hesap_adi")
+        self.depo.ayarlar.update(d.get("ayarlar") or {})
+        if eski_rt:
+            self.depo.ayarlar["dropbox_app_key"] = eski_key
+            self.depo.ayarlar["dropbox_refresh_token"] = eski_rt
+            if eski_ad:
+                self.depo.ayarlar["dropbox_hesap_adi"] = eski_ad
+        self.depo.kaydet()
+        try:
+            import yedekleme
+            yedekleme.yedek_yaz(self.depo)
+        except Exception:
+            pass
+        self.sekme_ac(self.aktif_sekme)
+        self._durum_yaz()
+
+    # ── yedek klasörü ──────────────────────────────────────────────
+    def _tmdb_anahtarini_yenile(self):
+        """Yedekten gelen TMDB anahtarını çalışan istemciye uygula."""
+        try:
+            self.tmdb.anahtar = str(self.depo.ayarlar.get("tmdb_anahtar", "") or "").strip()
+            arayuz.TMDB_ESLESME.clear()
+        except Exception:
+            pass
+
+    def yedek_klasoru_sec(self):
+        """Yedeklerin yazılacağı klasörü kullanıcı seçer (Dropbox/Drive/USB…)."""
+        import yedekleme
+        baslangic = str(yedekleme.yedek_klasoru(self.depo) or Path.home())
+        klasor = QFileDialog.getExistingDirectory(
+            self, "Yedek klasörünü seç", baslangic)
+        if not klasor:
+            return
+        eski = self.depo.ayarlar.get("yedek_klasoru")
+        self.depo.ayarlar["yedek_klasoru"] = klasor
+        self.depo.kaydet()
+        try:
+            yazildi = yedekleme.yedek_yaz(self.depo, hata_ver=True)
+        except Exception as e:
+            if eski:
+                self.depo.ayarlar["yedek_klasoru"] = eski
+            else:
+                self.depo.ayarlar.pop("yedek_klasoru", None)
+            self.depo.kaydet()
+            QMessageBox.critical(
+                self, "Yedek klasörü kullanılamıyor",
+                f"Bu klasöre yazılamadı:\n{klasor}\n\n{type(e).__name__}: {e}")
+            return
+        if yazildi:
+            QMessageBox.information(
+                self, "Yedek klasörü ayarlandı",
+                f"Yedekler buraya yazılacak:\n{klasor}\n\n"
+                "• Program açıkken 5 dakikada bir otomatik güncellenir\n"
+                "• Her gün için ayrı bir kopya tutulur (son 7 gün)\n\n"
+                "Format sonrası: ⚙ → Yedek klasöründen geri yükle.")
+        else:
+            QMessageBox.information(
+                self, "Yedek klasörü ayarlandı",
+                f"{klasor}\n\nBu klasörde dolu bir yedek zaten var; şu an "
+                "kütüphane boş olduğu için üzerine YAZILMADI.\n"
+                "Verilerini almak için: ⚙ → Yedek klasöründen geri yükle.")
+
+    def yedek_simdi(self):
+        """Yedeği hemen yazar (klasör seçilmemişse önce seçtirir)."""
+        import yedekleme
+        if not yedekleme.yedek_klasoru(self.depo):
+            self.yedek_klasoru_sec()
+            return
+        try:
+            self.depo.kaydet()
+            yazildi = yedekleme.yedek_yaz(self.depo, hata_ver=True)
+        except Exception as e:
+            QMessageBox.critical(self, "Yedek hatası", f"{type(e).__name__}: {e}")
+            return
+        if yazildi:
+            self.statusBar().showMessage(
+                f"💾 Yedek yazıldı: {yedekleme.hedef_yol(self.depo)}", 6000)
+        else:
+            QMessageBox.warning(
+                self, "Yedek yazılmadı",
+                "Kütüphane boş görünüyor; klasördeki dolu yedeğin üzerine "
+                "yazmamak için işlem yapılmadı.")
+
+    def yedek_klasorden_yukle(self):
+        """Yedek klasöründeki en yeni yedeği içeri alır (format sonrası)."""
+        import yedekleme
+        baslangic = str(yedekleme.yedek_klasoru(self.depo) or Path.home())
+        klasor = QFileDialog.getExistingDirectory(
+            self, "Yedeğin bulunduğu klasörü seç", baslangic)
+        if not klasor:
+            return
+        d, yol = yedekleme.klasordeki_en_yeni_yedek(klasor)
+        if not d:
+            QMessageBox.warning(
+                self, "Yedek bulunamadı",
+                f"Bu klasörde MediaBox yedeği yok:\n{klasor}\n\n"
+                "(mediabox_yedek.json ya da mediabox_yedek_TARİH.json aranır)")
+            return
+        cevap = QMessageBox.question(
+            self, "Geri yükle",
+            f"{yol.name}\n\n{yedekleme.yedek_ozeti(d)}\n\n"
+            "Mevcut kütüphanenin yerine yazılacak. Devam?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+        if cevap != QMessageBox.StandardButton.Yes:
+            return
+        try:
+            yedekleme.yedegi_uygula(self.depo, d, yedek_klasoru_yolu=klasor)
+        except Exception as e:
+            QMessageBox.critical(self, "Geri yükleme başarısız",
+                                 f"{type(e).__name__}: {e}")
+            return
+        self._tmdb_anahtarini_yenile()
+        self._dx = None
+        self._dx_imza = None
+        self.sekme_ac(self.aktif_sekme)
+        self._durum_yaz()
+        QMessageBox.information(
+            self, "Geri yüklendi",
+            f"{len(self.depo.icerikler)} içerik · {len(self.depo.favoriler)} favori · "
+            f"{len(self.depo.ilerleme)} izleme kaydı\n\n"
+            f"Bundan sonra yedekler bu klasöre yazılacak:\n{klasor}")
+
+    def yerel_tam_yedek_kaydet(self):
+        """
+        Tüm veriyi bilgisayara .json olarak kaydeder.
+        Tek seferlik elle yedek. Düzenli yedek için "Yedek klasörünü seç"i kullan.
+        """
+        yol, _ = QFileDialog.getSaveFileName(
+            self, "Yedek dosyasını kaydet",
+            str(Path.home() / "mediabox_yedek.json"),
+            "JSON (*.json)")
+        if not yol:
+            return
+        try:
+            import json as _json
+            d = self._yedek_sozluk()
+            Path(yol).write_text(_json.dumps(d, ensure_ascii=False), encoding="utf-8")
+            QMessageBox.information(
+                self, "Yedek kaydedildi",
+                f"Dosya:\n{yol}\n\n"
+                f"{len(self.depo.icerikler)} içerik · "
+                f"{len(self.depo.favoriler)} favori\n\n"
+                "Format sonrası: ⚙ → Tek yedek dosyasından geri yükle.")
+        except Exception as e:
+            QMessageBox.critical(self, "Yedek hatası", str(e))
+
+    def yerel_yedekten_yukle(self):
+        """Bilgisayardaki yedek .json dosyasından geri yükler."""
+        yol, _ = QFileDialog.getOpenFileName(
+            self, "Yedek dosyası seç", str(Path.home()),
+            "JSON (*.json);;Tüm dosyalar (*)")
+        if not yol:
+            return
+        cevap = QMessageBox.question(
+            self, "Geri yükle",
+            "Seçilen yedek mevcut kütüphanenin yerine yazılacak.\nDevam?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+        if cevap != QMessageBox.StandardButton.Yes:
+            return
+        try:
+            import json as _json
+            d = _json.loads(Path(yol).read_text(encoding="utf-8"))
+            if not isinstance(d, dict) or "icerikler" not in d:
+                QMessageBox.warning(self, "Geçersiz", "Bu dosya MediaBox yedeği değil.")
+                return
+            self._yedekten_uygula(d)
+            QMessageBox.information(
+                self, "Geri yüklendi",
+                f"{len(self.depo.icerikler)} içerik · "
+                f"{len(self.depo.favoriler)} favori · "
+                f"{len(self.depo.ilerleme)} izleme kaydı")
+        except Exception as e:
+            QMessageBox.critical(self, "Hata", str(e))
+
+    def _dropbox_token_al(self) -> str:
+
+        """Kayıtlı refresh token ile access token; yoksa boş."""
+        anahtar = self.depo.ayarlar.get("dropbox_app_key", "")
+        rt = self.depo.ayarlar.get("dropbox_refresh_token", "")
+        if not anahtar or not rt:
+            return ""
+        try:
+            from dropbox_kaynak import erisim_tokeni_yenile
+            return erisim_tokeni_yenile(anahtar, rt)
+        except Exception as e:
+            self.statusBar().showMessage(f"Dropbox token: {e}", 5000)
+            return ""
+
+
+
+
+
     def dropbox_ac(self):
+
         """
         Dropbox hesabına bağlanma / bağlıysa içe aktarma penceresi.
 
@@ -1960,6 +2504,16 @@ class AnaPencere(QMainWindow):
         (`eskiyi_sil=True` — kaynak yöneticisi "değiştir") hiçbir kayıt
         kaldırılmaz. Otomatik yenileme de bu yolu kullanır.
         """
+        # Çöp / HTML artığı asla eklenmesin
+        try:
+            from mediabox_qt import _cop_ad_mi, _gecerli_akış_url
+            yeni = [
+                e for e in (yeni or [])
+                if e and not _cop_ad_mi(getattr(e, "ad", "") or "")
+                and _gecerli_akış_url(getattr(e, "url", "") or "")
+            ]
+        except Exception:
+            pass
         if not yeni:
             QMessageBox.warning(self, "Boş liste", "Eklenecek geçerli içerik yok.")
             return
@@ -2038,8 +2592,7 @@ class AnaPencere(QMainWindow):
             if k and k not in dizi_idx:
                 dizi_idx[k] = e
 
-        # kaynaklar kaydı
-        tur = "url" if url_kaynak else "dosya"
+        # kaynaklar kaydı — json_url / dropbox türlerini ezme
         kayit = None
         for k in self.depo.kaynaklar:
             if k.get("ad") == kaynak_adi:
@@ -2051,10 +2604,12 @@ class AnaPencere(QMainWindow):
             kayit["zaman"] = time.time()
             if url_kaynak:
                 kayit["url"] = url_kaynak
-                kayit["tur"] = "url"
+                if kayit.get("tur") not in ("json_url", "dropbox", "youtube"):
+                    kayit["tur"] = "url"
             else:
                 kayit["tur"] = kayit.get("tur") or "dosya"
         else:
+            tur = "url" if url_kaynak else "dosya"
             self.depo.kaynaklar.append({
                 "ad": kaynak_adi, "tur": tur,
                 "url": url_kaynak, "adet": adet_kaynak, "zaman": time.time()})
@@ -2078,45 +2633,334 @@ class AnaPencere(QMainWindow):
 
 
     def ucretsiz_kaynaklar(self):
-        d = QDialog(self); d.setWindowTitle("Ücretsiz & Yasal Kaynaklar"); d.resize(680, 480)
+        """
+        Yerleşik ücretsiz kaynaklar + kullanıcının eklediği kalıcı kaynaklar.
+
+        Kullanıcı kaynakları depo.ayarlar["kullanici_ucretsiz_kaynaklar"] içinde
+        tutulur; kullanıcı silmedikçe asla kaybolmaz / otomatik temizlenmez.
+        """
+        d = QDialog(self)
+        d.setWindowTitle("Ücretsiz & Yasal Kaynaklar")
+        d.resize(720, 520)
         v = QVBoxLayout(d)
-        bilgi = QLabel("Bu kaynaklar tamamen yasaldır ve ücretsizdir.")
+        saat = int(self.depo.ayarlar.get("yenileme_saat", 6) or 0)
+        if saat:
+            yn_txt = f"Otomatik yenileme: {saat} saatte bir (listeye eklenenler)."
+        else:
+            yn_txt = "Otomatik yenileme: kapalı."
+        bilgi = QLabel(
+            "Yerleşik kaynaklar + sizin ekledikleriniz.\n"
+            "Eklediğiniz kaynaklar siz silmedikçe kalıcıdır.\n"
+            + yn_txt +
+            "\nAralığı değiştirmek: ⚙ menü → Otomatik yenileme (6 / 12 / 24 saat)."
+        )
+        bilgi.setWordWrap(True)
         bilgi.setStyleSheet(f"color:{R_SOLUK};padding-bottom:6px;")
         v.addWidget(bilgi)
+        yn_satir = QHBoxLayout()
+        yn_satir.addWidget(QLabel("Yenileme aralığı:"))
+        for sa, et in ((0, "Kapalı"), (6, "6 saat"), (12, "12 saat"), (24, "24 saat")):
+            b = QPushButton(et)
+            b.setCheckable(True)
+            b.setChecked(saat == sa)
+            b.setFixedHeight(28)
+            def _ayarla(_sa=sa, _btn=b):
+                self._yenileme_ayarla(_sa)
+                # kardeş düğmeleri güncelle
+                for i in range(yn_satir.count()):
+                    w = yn_satir.itemAt(i).widget()
+                    if isinstance(w, QPushButton) and w is not _btn:
+                        w.setChecked(False)
+                _btn.setChecked(True)
+            b.clicked.connect(_ayarla)
+            yn_satir.addWidget(b)
+        yn_satir.addStretch()
+        v.addLayout(yn_satir)
         liste = QListWidget()
-        for k in UCRETSIZ_KAYNAKLAR:
-            it = QListWidgetItem(f"{k['ad']}   —   {k['adet']}\n{k['aciklama']}")
-            it.setData(Qt.ItemDataRole.UserRole, k)
-            liste.addItem(it)
         v.addWidget(liste, 1)
+
+        def _kullanici_liste():
+            k = self.depo.ayarlar.get("kullanici_ucretsiz_kaynaklar")
+            if not isinstance(k, list):
+                k = []
+                self.depo.ayarlar["kullanici_ucretsiz_kaynaklar"] = k
+            return k
+
+        def yenile_liste():
+            liste.clear()
+            for k in UCRETSIZ_KAYNAKLAR:
+                it = QListWidgetItem(
+                    f"🎁 {k['ad']}   —   {k.get('adet', '')}\n"
+                    f"        {k.get('aciklama', '')}")
+                it.setData(Qt.ItemDataRole.UserRole, dict(k, _kullanici=False))
+                liste.addItem(it)
+            for k in _kullanici_liste():
+                it = QListWidgetItem(
+                    f"📌 {k.get('ad', '?')}   —   {k.get('adet', 'özel')}\n"
+                    f"        {k.get('aciklama') or k.get('url', '')}")
+                it.setData(Qt.ItemDataRole.UserRole, dict(k, _kullanici=True))
+                liste.addItem(it)
+
+        yenile_liste()
+
         h = QHBoxLayout()
-        b1 = QPushButton("Seçileni ekle"); b2 = QPushButton("Kapat")
-        h.addStretch(); h.addWidget(b1); h.addWidget(b2); v.addLayout(h)
-        b2.clicked.connect(d.reject)
-        def ekle():
+        b_ekle_liste = QPushButton("📥  Listeye ekle")
+        b_yenile = QPushButton("🔄  Yenile")
+        b_kaynak_ekle = QPushButton("＋  Kaynak ekle")
+        b_sil = QPushButton("🗑  Sil")
+        b_kapat = QPushButton("Kapat")
+        h.addWidget(b_ekle_liste)
+        h.addWidget(b_yenile)
+        h.addWidget(b_kaynak_ekle)
+        h.addWidget(b_sil)
+        h.addStretch()
+        h.addWidget(b_kapat)
+        v.addLayout(h)
+
+        def _secilen():
             it = liste.currentItem()
-            if not it:
+            return it.data(Qt.ItemDataRole.UserRole) if it else None
+
+        def _indir_ve_ekle(k, eskiyi_sil=False):
+            url = (k.get("url") or "").strip()
+            if not url:
+                QMessageBox.warning(d, "Eksik", "URL yok.")
                 return
-            k = it.data(Qt.ItemDataRole.UserRole)
-            d.accept()
-            if k["url"].startswith("ia://"):
+            if url.startswith("ia://"):
                 QMessageBox.information(
                     self, "Internet Archive",
-                    "Internet Archive arşivi bir sonraki sürümde doğrudan taranacak.\n"
+                    "Internet Archive arşivi henüz doğrudan taranmıyor.\n"
                     "Şimdilik diğer kaynakları kullanabilirsiniz.")
                 return
-            self.statusBar().showMessage(f"{k['ad']} indiriliyor…")
-            self._indirici = Indirici(k["url"])
-            self._indirici.ilerleme.connect(lambda s: self.statusBar().showMessage(s))
-            def bitti(metin, hata):
+            ad = k.get("ad") or url
+            # YouTube playlist → yt-dlp
+            try:
+                from mediabox_qt import youtube_playlist_mi, youtube_video_mi
+            except Exception:
+                youtube_playlist_mi = lambda u: False
+                youtube_video_mi = lambda u: False
+            if youtube_playlist_mi(url) or youtube_video_mi(url):
+                d.accept()
+                self._youtube_kaynak_ekle(url, kaynak_adi=ad,
+                                         kategori=k.get("kategori"))
+                return
+            self.statusBar().showMessage(f"{ad} indiriliyor…")
+            self._indirici = Indirici(url)
+            self._indirici.ilerleme.connect(
+                lambda s: self.statusBar().showMessage(s))
+
+            def bitti(metin, hata, _ad=ad, _url=url, _kat=k.get("kategori"),
+                      _sil=eskiyi_sil):
                 if hata:
-                    QMessageBox.critical(self, "İndirilemedi", hata); self._durum_yaz(); return
-                self._icerik_ekle(metin, k["ad"], url_kaynak=k["url"],
-                                  kategori=k.get("kategori"))
+                    if hata == "youtube-redirect":
+                        self._youtube_kaynak_ekle(
+                            _url, kaynak_adi=_ad, kategori=_kat)
+                        return
+                    QMessageBox.critical(self, "İndirilemedi", hata)
+                    self._durum_yaz()
+                    return
+                from mediabox_qt import _html_cop_mu
+                if _html_cop_mu(metin or ""):
+                    QMessageBox.warning(
+                        self, "Geçersiz kaynak",
+                        "Bu adres bir M3U listesi değil (HTML sayfası).\n"
+                        "YouTube için playlist linki kullanın; yt-dlp gerekir.")
+                    self._durum_yaz()
+                    return
+                self._icerik_ekle(metin, _ad, url_kaynak=_url, kategori=_kat)
+                # kaynaklar kaydını koru — otomatik yenileme bu kayıt üzerinden çalışır
+                bulundu = False
+                for kk in self.depo.kaynaklar:
+                    if kk.get("ad") == _ad or kk.get("url") == _url:
+                        kk["url"] = _url
+                        kk["ad"] = _ad
+                        kk["kullanici"] = True
+                        kk["ucretsiz"] = True
+                        kk["tur"] = kk.get("tur") or "url"
+                        kk["zaman"] = time.time()
+                        bulundu = True
+                        break
+                if not bulundu:
+                    self.depo.kaynaklar.append({
+                        "ad": _ad, "tur": "url", "url": _url,
+                        "adet": 0, "zaman": time.time(),
+                        "kullanici": True, "ucretsiz": True,
+                    })
+                self.depo.kaydet()
+
             self._indirici.bitti.connect(bitti)
             self._indirici.start()
-        b1.clicked.connect(ekle)
-        liste.itemDoubleClicked.connect(lambda _: ekle())
+
+        def ekle_listeye():
+            k = _secilen()
+            if not k:
+                return
+            _indir_ve_ekle(k, eskiyi_sil=False)
+
+        def yenile_kaynak():
+            k = _secilen()
+            if not k:
+                return
+            ad = k.get("ad", "")
+            # Yenile: mevcut kaynağın içeriğini güncelle (onaylı)
+            cevap = QMessageBox.question(
+                d, "Kaynağı yenile",
+                f"“{ad}” yeniden indirilecek.\n\n"
+                "Evet = yeni URL’leri ekle (mevcut kalsın)\n"
+                "Hayır = bu kaynağın eskilerini silip yenisiyle değiştir\n"
+                "İptal = vazgeç",
+                QMessageBox.StandardButton.Yes
+                | QMessageBox.StandardButton.No
+                | QMessageBox.StandardButton.Cancel)
+            if cevap == QMessageBox.StandardButton.Cancel:
+                return
+            url = (k.get("url") or "").strip()
+            if not url or url.startswith("ia://"):
+                QMessageBox.warning(d, "Yenilenemez", "Bu kaynak yenilenemiyor.")
+                return
+            try:
+                from mediabox_qt import youtube_playlist_mi, youtube_video_mi
+                if youtube_playlist_mi(url) or youtube_video_mi(url):
+                    d.accept()
+                    self._youtube_kaynak_ekle(
+                        url, kaynak_adi=ad, kategori=k.get("kategori"))
+                    return
+            except Exception:
+                pass
+            self.statusBar().showMessage(f"{ad} yenileniyor…")
+            self._indirici = Indirici(url)
+
+            def bitti(metin, hata, _ad=ad, _url=url, _kat=k.get("kategori"),
+                      _sil=(cevap == QMessageBox.StandardButton.No)):
+                if hata:
+                    if hata == "youtube-redirect":
+                        self._youtube_kaynak_ekle(
+                            _url, kaynak_adi=_ad, kategori=_kat)
+                        return
+                    QMessageBox.critical(self, "Yenilenemedi", hata)
+                    return
+                from mediabox_qt import m3u_ayristir, domino_json_ayristir, _html_cop_mu
+                if _html_cop_mu(metin or ""):
+                    QMessageBox.warning(self, "Geçersiz", "HTML sayfası — M3U değil.")
+                    return
+                yeni = []
+                # JSON mu M3U mu?
+                if metin.lstrip()[:1] in ("{", "["):
+                    try:
+                        yeni = domino_json_ayristir(metin, kaynak=_ad)
+                    except Exception:
+                        yeni = []
+                if not yeni:
+                    yeni = m3u_ayristir(metin, kaynak=_ad, kategori=_kat)
+                if not yeni:
+                    QMessageBox.warning(d, "Boş", "Liste boş döndü — mevcut korundu.")
+                    return
+                self._listeye_ekle(yeni, _ad, url_kaynak=_url, eskiyi_sil=_sil)
+                for kk in self.depo.kaynaklar:
+                    if kk.get("ad") == _ad:
+                        kk["kullanici"] = True
+                        kk["url"] = _url
+                        kk["zaman"] = time.time()
+                        break
+                self.depo.kaydet()
+
+            self._indirici.bitti.connect(bitti)
+            self._indirici.start()
+
+        def kaynak_ekle():
+            ad, ok = QInputDialog.getText(d, "Kaynak ekle", "Kaynak adı:")
+            if not ok or not (ad or "").strip():
+                return
+            ad = ad.strip()
+            url, ok2 = QInputDialog.getText(
+                d, "Kaynak ekle", "M3U / JSON URL adresi:")
+            if not ok2 or not (url or "").strip():
+                return
+            url = url.strip()
+            if "github.com" in url and "/blob/" in url:
+                url = url.replace("github.com", "raw.githubusercontent.com").replace("/blob/", "/")
+            kat, ok3 = QInputDialog.getItem(
+                d, "Kategori", "Varsayılan kategori:",
+                ["auto", "movie", "series", "anime", "live",
+                 "youtube_film", "youtube_dizi"], 0, False)
+            if not ok3:
+                return
+            kayit = {
+                "id": f"user_{int(time.time())}",
+                "ad": ad,
+                "url": url,
+                "kategori": None if kat == "auto" else kat,
+                "adet": "özel",
+                "aciklama": "Sizin eklediğiniz kaynak",
+                "kullanici": True,
+            }
+            # YouTube ise hemen playlist olarak çek
+            try:
+                from mediabox_qt import youtube_playlist_mi, youtube_video_mi
+                if youtube_playlist_mi(url) or youtube_video_mi(url):
+                    kl = _kullanici_liste()
+                    for i, x in enumerate(kl):
+                        if x.get("ad") == ad:
+                            kl[i] = kayit
+                            break
+                    else:
+                        kl.append(kayit)
+                    self.depo.ayarlar["kullanici_ucretsiz_kaynaklar"] = kl
+                    self.depo.kaydet()
+                    yenile_liste()
+                    d.accept()
+                    self._youtube_kaynak_ekle(
+                        url, kaynak_adi=ad,
+                        kategori=(None if kat == "auto" else kat))
+                    return
+            except Exception:
+                pass
+            kl = _kullanici_liste()
+            # aynı ad varsa güncelle, yoksa ekle
+            for i, x in enumerate(kl):
+                if x.get("ad") == ad:
+                    kl[i] = kayit
+                    break
+            else:
+                kl.append(kayit)
+            self.depo.ayarlar["kullanici_ucretsiz_kaynaklar"] = kl
+            self.depo.kaydet()
+            yenile_liste()
+            QMessageBox.information(
+                d, "Eklendi",
+                f"“{ad}” kaydedildi.\n"
+                "İsterseniz seçip “Listeye ekle” veya “Yenile” ile içeriği çekin.\n"
+                "Siz silmedikçe bu kaynak kaybolmaz.")
+
+        def kaynak_sil():
+            k = _secilen()
+            if not k:
+                return
+            if not k.get("_kullanici") and not k.get("kullanici"):
+                QMessageBox.information(
+                    d, "Silinemez",
+                    "Yerleşik (hediye) kaynaklar silinemez.\n"
+                    "Yalnızca sizin eklediğiniz kaynaklar silinebilir.")
+                return
+            ad = k.get("ad", "")
+            if QMessageBox.question(
+                    d, "Sil",
+                    f"“{ad}” kaynağını listeden kaldırmak istiyor musunuz?\n"
+                    "(Daha önce eklenmiş içerikler silinmez — yalnızca bu kısayol.)"
+            ) != QMessageBox.StandardButton.Yes:
+                return
+            kl = _kullanici_liste()
+            self.depo.ayarlar["kullanici_ucretsiz_kaynaklar"] = [
+                x for x in kl if x.get("ad") != ad]
+            self.depo.kaydet()
+            yenile_liste()
+
+        b_ekle_liste.clicked.connect(ekle_listeye)
+        b_yenile.clicked.connect(yenile_kaynak)
+        b_kaynak_ekle.clicked.connect(kaynak_ekle)
+        b_sil.clicked.connect(kaynak_sil)
+        b_kapat.clicked.connect(d.accept)
+        liste.itemDoubleClicked.connect(lambda _: ekle_listeye())
         d.exec()
 
     def disa_aktar(self):
@@ -2213,8 +3057,15 @@ class AnaPencere(QMainWindow):
     def ayarlar_menusu(self):
         m = QMenu(self)
         m.addAction("🔑  TMDB API anahtarı…", self.tmdb_ayar)
+        m.addSeparator()
+        m.addAction("📁  Yedek klasörünü seç…", self.yedek_klasoru_sec)
+        m.addAction("💾  Şimdi yedekle", self.yedek_simdi)
+        m.addAction("📥  Yedek klasöründen geri yükle…", self.yedek_klasorden_yukle)
+        m.addSeparator()
+        m.addAction("💾  Tek yedek dosyası kaydet…", self.yerel_tam_yedek_kaydet)
+        m.addAction("📥  Tek yedek dosyasından geri yükle…", self.yerel_yedekten_yukle)
         m.addAction("🔗  Sağlayıcılar (URL şablonları)…", self.saglayici_ac)
-        m.addAction("🖼  TMDB afişlerini tazele", self.tmdb_onbellek_temizle)
+        m.addAction("🖼  TMDB afişlerini yenile (kalıcı)", self.tmdb_onbellek_temizle)
         m.addAction("🎨  Tema / arayüz…", self.tema_sec)
 
         # “Bunları da İzle” rafı
@@ -2449,39 +3300,139 @@ class AnaPencere(QMainWindow):
 
     def _otomatik_yenile(self):
         """
-        URL kaynaklarını süresi geldiyse sessizce yeniler.
-        Aralık: ayarlar["yenileme_saat"] (0 = kapalı, varsayılan 6 saat).
+        URL / JSON / ücretsiz kaynakları süresi geldiyse sessizce yeniler.
+
+        Aralık: ayarlar["yenileme_saat"]
+          0  = kapalı
+          6  = 6 saatte bir (varsayılan)
+          12 = 12 saatte bir
+          …
+
+        Her zamanlayıcı turunda en fazla 3 kaynak yenilenir (ağı yormamak için).
+        Mevcut içerik ASLA silinmez; yalnızca yeni URL'ler eklenir.
         """
         saat = self.depo.ayarlar.get("yenileme_saat", 6)
         if not saat:
             return
         simdi = time.time()
+        esik = float(saat) * 3600.0
 
-        # ── Dropbox: bağlıysa süresi geldiğinde sessizce yeniden tara ──
+        # ── Dropbox ──
         anahtar = self.depo.ayarlar.get("dropbox_app_key", "")
         rt = self.depo.ayarlar.get("dropbox_refresh_token", "")
         for k in self.depo.kaynaklar:
             if k.get("tur") == "dropbox" and anahtar and rt:
-                if simdi - k.get("zaman", 0) >= saat * 3600:
+                if simdi - float(k.get("zaman") or 0) >= esik:
                     k["zaman"] = simdi
                     self._dropbox_arka_planda_yenile(anahtar, rt, k)
                 break
 
+        # ── URL / JSON / ücretsiz / YouTube kaynaklar ──
+        adaylar = []
+        yt_adaylar = []
         for k in self.depo.kaynaklar:
-            if k.get("tur") != "url" or not k.get("url"):
+            tur = (k.get("tur") or "").strip()
+            url = (k.get("url") or "").strip()
+            if not url:
                 continue
-            if simdi - k.get("zaman", 0) < saat * 3600:
+            if simdi - float(k.get("zaman") or 0) < esik:
                 continue
-            k["zaman"] = simdi            # tekrar tekrar denemesin
-            ad = k.get("ad", "")
-            ind = Indirici(k["url"])
-            def bitti(metin, hata, _ad=ad, _k=k):
-                if hata or not metin:
+            ul = url.lower()
+            yt_mi = (
+                tur == "youtube"
+                or "youtube.com" in ul
+                or "youtu.be" in ul
+            )
+            if yt_mi:
+                yt_adaylar.append(k)
+                continue
+            # url, json_url ve kullanıcı/ücretsiz işaretli kaynaklar
+            if tur and tur not in ("url", "json_url"):
+                if not (k.get("kullanici") or k.get("ucretsiz")):
+                    continue
+                if tur not in ("url", "json_url", ""):
+                    continue
+            adaylar.append(k)
+
+        # En eski yenilenenler önce
+        adaylar.sort(key=lambda x: float(x.get("zaman") or 0))
+        yt_adaylar.sort(key=lambda x: float(x.get("zaman") or 0))
+
+        # YouTube: yt-dlp ile sessiz yenile (yalnızca YENİ videolar eklenir)
+        for k in yt_adaylar[:2]:
+            k["zaman"] = simdi
+            ad = k.get("ad", "") or "YouTube"
+            url = k.get("url", "")
+            # Kayıtlı mod (film/dizi); eski kayıtlarda yoksa dizi sayılır
+            _mod = ("youtube_film"
+                    if str(k.get("kategori") or "").lower() in self._YT_FILM_KATLAR
+                    else "youtube")
+            isci = YoutubePlaylistIsci(url, kaynak=ad, kategori=_mod)
+
+            def yt_bitti(liste, hata, _ad=ad, _k=k, _mod=_mod):
+                if hata or not liste:
+                    _k["zaman"] = 0
+                    try:
+                        self.depo.kaydet()
+                    except Exception:
+                        pass
                     return
-                yeni = m3u_ayristir(metin, kaynak=_ad)
+                mevcut = {e.url for e in self.depo.icerikler}
+                eklendi = 0
+                for e in liste:
+                    if e.url and e.url not in mevcut:
+                        e.kaynak = _ad
+                        e.kategori = _mod
+                        if not (e.grup or "").strip():
+                            e.grup = _ad
+                        self.depo.icerikler.append(e)
+                        mevcut.add(e.url)
+                        eklendi += 1
+                _k["adet"] = sum(1 for e in self.depo.icerikler if e.kaynak == _ad)
+                _k["zaman"] = time.time()
+                self.depo.kaydet()
+                if eklendi:
+                    self.statusBar().showMessage(
+                        f"🔄 YouTube “{_ad}” yenilendi (+{eklendi} yeni video)", 7000)
+                    if self.aktif_sekme in ("home", "youtube_film", "youtube_dizi"):
+                        self.sekme_ac(self.aktif_sekme)
+
+            isci.bitti.connect(yt_bitti)
+            # referansı tut (GC isci'yi öldürmesin)
+            if not hasattr(self, "_yt_yenile_isciler"):
+                self._yt_yenile_isciler = []
+            self._yt_yenile_isciler = [x for x in self._yt_yenile_isciler if x.isRunning()]
+            self._yt_yenile_isciler.append(isci)
+            isci.start()
+
+        for k in adaylar[:3]:
+            k["zaman"] = simdi  # kilit: aynı turda tekrar seçilmesin
+            ad = k.get("ad", "") or "Kaynak"
+            tur = k.get("tur") or "url"
+            url = k.get("url", "")
+            ind = Indirici(url)
+
+            def bitti(metin, hata, _ad=ad, _k=k, _tur=tur):
+                if hata or not metin:
+                    # Başarısızsa zamanı geri al ki bir sonraki turda tekrar denensin
+                    _k["zaman"] = 0
+                    try:
+                        self.depo.kaydet()
+                    except Exception:
+                        pass
+                    return
+                if _tur == "json_url" or (metin.lstrip()[:1] in ("{", "[")):
+                    try:
+                        from mediabox_qt import domino_json_ayristir
+                        yeni = domino_json_ayristir(metin, kaynak=_ad)
+                    except Exception:
+                        yeni = []
+                    if not yeni:
+                        yeni = m3u_ayristir(metin, kaynak=_ad)
+                else:
+                    yeni = m3u_ayristir(metin, kaynak=_ad)
                 if not yeni:
                     return
-                # KORUMA: otomatik yenilemede hiçbir şey silinmez; yalnız yeni URL eklenir
                 mevcut = {e.url for e in self.depo.icerikler}
                 eklendi = 0
                 for e in yeni:
@@ -2493,13 +3444,14 @@ class AnaPencere(QMainWindow):
                 _k["adet"] = sum(1 for e in self.depo.icerikler if e.kaynak == _ad)
                 _k["zaman"] = time.time()
                 self.depo.kaydet()
-                self.statusBar().showMessage(
-                    f"🔄 {_ad} otomatik yenilendi (+{eklendi} yeni, mevcut korundu)", 6000)
-                if self.aktif_sekme == "home":
-                    self._anasayfa_ciz()
+                if eklendi:
+                    self.statusBar().showMessage(
+                        f"🔄 {_ad} otomatik yenilendi (+{eklendi} yeni)", 6000)
+                    if self.aktif_sekme == "home":
+                        self._anasayfa_ciz()
+
             ind.bitti.connect(bitti)
             isci_baslat(ind)
-            break        # her turda yalnızca bir kaynak (ağı yormamak için)
 
     def _dropbox_arka_planda_yenile(self, app_key: str, refresh_token: str, kaynak_kaydi: dict):
         """Dropbox içeriğini kullanıcıya sormadan, arka planda yeniden tarar."""
@@ -2562,6 +3514,7 @@ class AnaPencere(QMainWindow):
                 ad = k.get("ad", "?")
                 n = sayim.get(ad, 0)
                 tur = ("☁ Dropbox" if k.get("tur") == "dropbox"
+                      else "📋 JSON" if k.get("tur") == "json_url"
                       else "🌐 URL" if k.get("tur") == "url" else "📂 Dosya")
                 it = QListWidgetItem(f"{tur}   {ad}\n        {n} içerik")
                 it.setData(Qt.ItemDataRole.UserRole, i)
@@ -2602,16 +3555,21 @@ class AnaPencere(QMainWindow):
             i = secili()
             if i is None: return
             k = self.depo.kaynaklar[i]
-            if k.get("tur") != "url" or not k.get("url"):
-                QMessageBox.information(d, "Bilgi", "Yalnızca URL kaynakları yenilenebilir.")
+            if k.get("tur") not in ("url", "json_url") or not k.get("url"):
+                QMessageBox.information(d, "Bilgi", "Yalnızca URL / JSON kaynakları yenilenebilir.")
                 return
             ad = k.get("ad", "")
+            tur = k.get("tur", "url")
             self.statusBar().showMessage(f"{ad} yenileniyor…")
             self._indirici = Indirici(k["url"])
-            def bitti(metin, hata):
+            def bitti(metin, hata, _tur=tur):
                 if hata:
                     QMessageBox.critical(d, "Yenilenemedi", hata); return
-                yeni = m3u_ayristir(metin, kaynak=ad)
+                if _tur == "json_url":
+                    from mediabox_qt import domino_json_ayristir
+                    yeni = domino_json_ayristir(metin, kaynak=ad)
+                else:
+                    yeni = m3u_ayristir(metin, kaynak=ad)
                 if not yeni:
                     QMessageBox.warning(d, "Boş", "Liste boş döndü — mevcut içerik korundu.")
                     return
@@ -2627,6 +3585,14 @@ class AnaPencere(QMainWindow):
                 self._listeye_ekle(
                     yeni, ad, url_kaynak=k.get("url") or "",
                     eskiyi_sil=(cevap == QMessageBox.StandardButton.No))
+                for kk in self.depo.kaynaklar:
+                    if kk.get("ad") == ad:
+                        if _tur == "json_url":
+                            kk["tur"] = "json_url"
+                        kk["adet"] = sum(1 for e in self.depo.icerikler if e.kaynak == ad)
+                        kk["zaman"] = time.time()
+                        break
+                self.depo.kaydet()
                 yenile()
             self._indirici.bitti.connect(bitti)
             self._indirici.start()
@@ -3108,15 +4074,159 @@ class AnaPencere(QMainWindow):
         SaglayiciYonetici(self.depo, self).exec()
 
     def tmdb_onbellek_temizle(self):
-        n = self.tmdb.onbellek_temizle()
-        for p in self.gorsel_klasor.glob("*.img"):
-            try: p.unlink()
-            except OSError: pass
+        """
+        TMDB afişlerini kararlı şekilde yeniler.
+
+        Eski davranış yalnızca önbelleği siliyordu; program kapanınca
+        Icerik.logo eski (M3U) değere dönüyordu çünkü TMDB sonucu
+        diske yazılmıyordu. Artık:
+          1) önbellek temizlenir
+          2) her içerik için TMDB aranır
+          3) bulunan afiş URL'si Icerik.logo alanına yazılır
+          4) depo diske kaydedilir
+        """
+        if not self.tmdb or not self.tmdb.hazir:
+            QMessageBox.warning(
+                self, "TMDB",
+                "TMDB anahtarı tanımlı değil. Ayarlardan anahtar girin.")
+            return
+
+        adaylar = []
+        gorulen = set()
+        for e in self.depo.icerikler:
+            if e.kategori == "live":
+                continue
+            ad = e.dizi_kok_anahtari() or e.temiz_ad()
+            if not ad:
+                continue
+            anahtar = f"{ad}|{e.yil()}|{e.kategori}"
+            if anahtar in gorulen:
+                continue
+            gorulen.add(anahtar)
+            adaylar.append(e)
+
+        if not adaylar:
+            QMessageBox.information(self, "TMDB", "Yenilenecek film/dizi yok.")
+            return
+
+        n_cache = self.tmdb.onbellek_temizle()
+        for pp in self.gorsel_klasor.glob("*.img"):
+            try:
+                pp.unlink()
+            except OSError:
+                pass
+        try:
+            from mediabox_qt import afis_klasoru
+            for pp in afis_klasoru().glob("*.img"):
+                try:
+                    pp.unlink()
+                except OSError:
+                    pass
+        except Exception:
+            pass
         arayuz.TMDB_ESLESME.clear()
-        self.sekme_ac(self.aktif_sekme)
-        QMessageBox.information(self, "Tazelendi",
-                                f"{n} TMDB kaydı ve indirilen afişler silindi.\n"
-                                "Görseller yeniden indirilecek.")
+        arayuz._TMDB_BEKLEYEN.clear()
+
+        d = QDialog(self)
+        d.setWindowTitle("TMDB afişleri yenileniyor")
+        d.resize(420, 140)
+        v = QVBoxLayout(d)
+        bilgi = QLabel(f"{len(adaylar)} içerik taranacak…")
+        bilgi.setWordWrap(True)
+        v.addWidget(bilgi)
+        cubuk = QProgressBar()
+        cubuk.setRange(0, len(adaylar))
+        v.addWidget(cubuk)
+        ozet = QLabel("0 / %d" % len(adaylar))
+        v.addWidget(ozet)
+        b_iptal = QPushButton("Arka planda sürdür")
+        v.addWidget(b_iptal, 0, Qt.AlignmentFlag.AlignRight)
+        b_iptal.clicked.connect(d.accept)
+
+        class _Isci(QThread):
+            ilerleme = pyqtSignal(int, int, int)  # done, found, total
+            bitti = pyqtSignal(int, int)
+
+            def __init__(self, istemci, liste):
+                super().__init__()
+                self.istemci = istemci
+                self.liste = liste
+                self._dur = False
+
+            def durdur(self):
+                self._dur = True
+
+            def run(self):
+                from tmdb import afis_url as _au
+                bulunan = 0
+                for i, e in enumerate(self.liste):
+                    if self._dur:
+                        break
+                    try:
+                        ad = e.dizi_kok_anahtari() or e.temiz_ad()
+                        dizi = bool(e.dizi_kok_anahtari()) or e.kategori in ("series", "anime")
+                        r = self.istemci.ara(ad, e.yil(), dizi)
+                        if r and r.get("poster_path"):
+                            url = _au(r["poster_path"])
+                            e.tmdb_id = r.get("id", 0) or 0
+                            e.puan = r.get("vote_average", 0) or 0
+                            e.afis = r.get("poster_path", "")
+                            e.logo = url
+                            # Aynı dizi/film adındaki tüm kayıtlara yay
+                            bulunan += 1
+                    except Exception:
+                        pass
+                    if i % 5 == 0 or i + 1 == len(self.liste):
+                        self.ilerleme.emit(i + 1, bulunan, len(self.liste))
+                self.bitti.emit(bulunan, len(self.liste))
+
+        isci = _Isci(self.tmdb, adaylar)
+
+        def _ilerleme(done, found, total):
+            cubuk.setValue(done)
+            ozet.setText(f"{done} / {total}  ·  {found} afiş bulundu")
+
+        def _bitti(found, total):
+            # Aynı ada sahip tüm bölümlere logo yay
+            logo_map = {}
+            for e in adaylar:
+                ad = e.dizi_kok_anahtari() or e.temiz_ad()
+                if e.logo and "image.tmdb.org" in (e.logo or ""):
+                    logo_map[(ad, e.yil())] = (e.logo, e.tmdb_id, e.puan, e.afis)
+            for e in self.depo.icerikler:
+                if e.kategori == "live":
+                    continue
+                ad = e.dizi_kok_anahtari() or e.temiz_ad()
+                k = (ad, e.yil())
+                if k in logo_map:
+                    logo, tid, puan, afis = logo_map[k]
+                    e.logo = logo
+                    if tid:
+                        e.tmdb_id = tid
+                    if puan:
+                        e.puan = puan
+                    if afis:
+                        e.afis = afis
+            try:
+                self.depo.kaydet()
+            except Exception:
+                pass
+            self.sekme_ac(self.aktif_sekme)
+            self.statusBar().showMessage(
+                f"🖼 TMDB: {found}/{total} afiş güncellendi ve kaydedildi", 8000)
+            if d.isVisible():
+                d.accept()
+            QMessageBox.information(
+                self, "TMDB afişleri",
+                f"{found} afiş bulundu ve diske kaydedildi.\n"
+                f"(Önbellek temizliği: {n_cache} kayıt)\n\n"
+                "Programı kapatsanız da afişler korunur.")
+
+        isci.ilerleme.connect(_ilerleme)
+        isci.bitti.connect(_bitti)
+        self._tmdb_yenile_isci = isci
+        isci.start()
+        d.exec()
 
     def _video_cikis(self, secim: str):
         """
@@ -3146,9 +4256,13 @@ class AnaPencere(QMainWindow):
     def _yenileme_ayarla(self, saat: int):
         self.depo.ayarlar["yenileme_saat"] = saat
         self.depo.kaydet()
-        self.statusBar().showMessage(
-            "Otomatik yenileme kapatıldı." if not saat
-            else f"URL kaynakları {saat} saatte bir yenilenecek.", 5000)
+        if not saat:
+            self.statusBar().showMessage("Otomatik yenileme kapatıldı.", 5000)
+        else:
+            self.statusBar().showMessage(
+                f"Ücretsiz / URL / JSON kaynakları {saat} saatte bir yenilenecek.", 6000)
+            # Bir sonraki turda süresi dolanlar taranabilsin diye zamanlayıcıyı dürt
+            QTimer.singleShot(2000, self._otomatik_yenile)
 
     def tani_goster(self):
         """Oynatıcı sorunlarını teşhis eder — çökme bildirimlerinde işe yarar."""
@@ -3284,6 +4398,11 @@ class AnaPencere(QMainWindow):
             self.depo.kaydet()
         except Exception as ex:
             print(f"[MediaBox] kapanışta depo: {type(ex).__name__}: {ex}")
+        try:
+            import yedekleme
+            yedekleme.yedek_yaz(self.depo)
+        except Exception as ex:
+            print(f"[MediaBox] kapanışta yedek: {type(ex).__name__}: {ex}")
 
     def closeEvent(self, e):
         # Her adım AYRI try/except: biri patlasa bile depo.kaydet çalışsın.
