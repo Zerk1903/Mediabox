@@ -411,6 +411,13 @@ def tmdb_afis_iste(icerik, geri_cagir):
                     icerik.tmdb_id = r.get("id", 0) or 0
                     icerik.puan = r.get("vote_average", 0) or 0
                     icerik.afis = r.get("poster_path", "")
+                    # Kalıcı afiş: logo boşsa veya önceki TMDB afişi ise yaz.
+                    # Böylece program kapanıp açılınca afiş kaybolmaz.
+                    eski_logo = (icerik.logo or "").strip()
+                    if (not eski_logo
+                            or "image.tmdb.org" in eski_logo
+                            or getattr(icerik, "_tmdb_logo_zorla", False)):
+                        icerik.logo = url
                 except Exception:
                     pass
         except Exception:
@@ -666,7 +673,231 @@ class Kart(QFrame):
 #  Dikey afişi olmayan içerikler için: geniş, sinema oranında kart.
 #  Öneri/İzlemeye Devam raflarında kullanılır.
 # ══════════════════════════════════════════════════════════════════
+
+class ListeSatiri(QFrame):
+    """
+    Liste görünümü satırı — solda afiş, sağda başlık + meta + özet.
+    (Kullanıcı isteği: afiş ızgarası yanında film konusu satırı)
+    """
+    AFIS_EN, AFIS_BOY = 110, 165
+
+    def __init__(self, grup: dict, depo: Depo, tiklandi, parent=None):
+        super().__init__(parent)
+        self.grup, self.depo, self._tiklandi = grup, depo, tiklandi
+        self.ilk = grup["bolumler"][0]
+        self._hover = False
+        self.setCursor(Qt.CursorShape.PointingHandCursor)
+        self.setMouseTracking(True)
+        self.setMinimumHeight(self.AFIS_BOY + 20)
+        self.setStyleSheet(
+            f"ListeSatiri{{background:{R_YUZEY};border:1px solid {R_CIZGI};"
+            f"border-radius:12px;}}")
+
+        y = QHBoxLayout(self)
+        y.setContentsMargins(12, 10, 16, 10)
+        y.setSpacing(16)
+
+        self.afis = QLabel()
+        self.afis.setFixedSize(self.AFIS_EN, self.AFIS_BOY)
+        self.afis.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.afis.setStyleSheet(
+            f"background:{R_YUZEY2};border-radius:8px;color:{R_SOLUK};")
+        self.afis.setText((grup.get("baslik") or "?")[:1].upper())
+        y.addWidget(self.afis, 0, Qt.AlignmentFlag.AlignTop)
+
+        sag = QVBoxLayout()
+        sag.setSpacing(4)
+        sag.setContentsMargins(0, 2, 0, 2)
+
+        self.l_baslik = QLabel(grup.get("baslik") or self.ilk.temiz_ad() or self.ilk.ad)
+        self.l_baslik.setStyleSheet(
+            f"font-size:17px;font-weight:800;color:{R_METIN};background:transparent;border:0;")
+        self.l_baslik.setWordWrap(True)
+        sag.addWidget(self.l_baslik)
+
+        # Meta: yıl · puan · süre/bölüm · kalite
+        par = []
+        if self.ilk.yil():
+            par.append(self.ilk.yil())
+        puan = getattr(self.ilk, "puan", 0) or 0
+        if puan:
+            par.append(f"★ {puan:.1f}")
+        kat = (grup.get("kategori") or self.ilk.kategori or "").lower()
+        n_bol = len(grup.get("bolumler") or [])
+        # "N bölüm" yalnız gerçek dizilerde
+        if (not grup.get("tekil")) and kat in ("series", "anime", "dizi") and n_bol >= 1:
+            par.append(f"{n_bol} bölüm")
+        elif grup.get("tekil"):
+            n_alt = len(getattr(self.ilk, "alternatifler", None) or [])
+            if n_alt:
+                par.append(f"{n_alt + 1} kaynak")
+        if self.ilk.kalite():
+            par.append(self.ilk.kalite())
+        if self.ilk.dublaj():
+            par.append("TR Dublaj")
+        if self.ilk.grup and kat != "live":
+            par.append(self.ilk.grup[:28])
+        self.l_meta = QLabel("  ·  ".join(par) if par else "")
+        self.l_meta.setStyleSheet(
+            f"color:{R_SOLUK};font-size:12px;background:transparent;border:0;")
+        sag.addWidget(self.l_meta)
+
+        ozet = (getattr(self.ilk, "ozet", "") or "").strip()
+        self.l_ozet = QLabel(
+            ozet[:320] + ("…" if len(ozet) > 320 else "") if ozet else "Konu yükleniyor…"
+        )
+        self.l_ozet.setWordWrap(True)
+        self.l_ozet.setStyleSheet(
+            f"color:#b9bec9;font-size:12.5px;background:transparent;border:0;")
+        self.l_ozet.setMaximumHeight(64)
+        if not ozet:
+            self.l_ozet.setStyleSheet(
+                f"color:{R_SOLUK};font-size:12px;font-style:italic;background:transparent;border:0;")
+        sag.addWidget(self.l_ozet)
+
+        sag.addStretch(1)
+
+        # Oynat düğmesi
+        dug = QHBoxLayout()
+        b = QPushButton("▶  Oynat")
+        b.setFixedSize(100, 34)
+        b.setCursor(Qt.CursorShape.PointingHandCursor)
+        b.setStyleSheet(
+            f"QPushButton{{background:{R_VURGU};border:0;border-radius:8px;"
+            f"color:#fff;font-weight:700;font-size:12px;}}"
+            f"QPushButton:hover{{background:#f6121d;}}")
+        b.clicked.connect(self._oynat)
+        dug.addWidget(b)
+        dug.addStretch()
+        sag.addLayout(dug)
+
+        y.addLayout(sag, 1)
+
+        logo = grup.get("logo") or self.ilk.logo
+        if logo:
+            AFIS.iste(logo, self._afis_geldi)
+        else:
+            tmdb_afis_iste(self.ilk, self._afis_geldi)
+        # Özet yoksa TMDB'den dene (film + dizi)
+        if not ozet and (self.ilk.kategori or "") != "live":
+            self._ozet_iste()
+        elif not ozet:
+            self.l_ozet.setText("")
+            self.l_ozet.setVisible(False)
+
+    def _afis_geldi(self, px: QPixmap):
+        try:
+            if px is None or px.isNull():
+                return
+            self.afis.setPixmap(px.scaled(
+                self.AFIS_EN, self.AFIS_BOY,
+                Qt.AspectRatioMode.KeepAspectRatioByExpanding,
+                Qt.TransformationMode.SmoothTransformation))
+            self.afis.setText("")
+        except RuntimeError:
+            pass
+
+    def _ozet_iste(self):
+        if TMDB is None or not getattr(TMDB, "hazir", False):
+            ana_is_parcasinda(lambda: self._ozet_yaz("", 0, ""))
+            return
+        # Filmlerde dizi_kok boş kalır; başlık / temiz ad kullan
+        ad = (self.grup.get("baslik") or self.ilk.temiz_ad()
+              or self.ilk.dizi_kok_anahtari() or self.ilk.ad or "")
+        ad = (ad or "").strip()
+        if not ad:
+            ana_is_parcasinda(lambda: self._ozet_yaz("", 0, ""))
+            return
+        kat = (self.grup.get("kategori") or self.ilk.kategori or "").lower()
+        dizi = kat in ("series", "anime", "dizi")
+        global _TMDB_HAVUZ
+        if _TMDB_HAVUZ is None:
+            from concurrent.futures import ThreadPoolExecutor
+            _TMDB_HAVUZ = ThreadPoolExecutor(max_workers=3)
+
+        def bul():
+            ozet, puan, yil = "", 0, ""
+            try:
+                r = TMDB.ara(ad, self.ilk.yil(), dizi)
+                if r:
+                    ozet = (r.get("overview") or "").strip()
+                    puan = r.get("vote_average") or 0
+                    yil = (r.get("release_date") or r.get("first_air_date") or "")[:4]
+                    if r.get("poster_path") and not self.ilk.logo:
+                        from tmdb import afis_url as _au
+                        url = _au(r["poster_path"])
+                        self.ilk.logo = url
+                        ana_is_parcasinda(lambda u=url: AFIS.iste(u, self._afis_geldi))
+            except Exception:
+                pass
+            ana_is_parcasinda(lambda: self._ozet_yaz(ozet, puan, yil))
+
+        _TMDB_HAVUZ.submit(bul)
+
+    def _ozet_yaz(self, ozet: str, puan, yil: str):
+        try:
+            if ozet:
+                self.ilk.ozet = ozet
+                self.l_ozet.setText(ozet[:320] + ("…" if len(ozet) > 320 else ""))
+                self.l_ozet.setStyleSheet(
+                    "color:#b9bec9;font-size:12.5px;background:transparent;border:0;")
+                self.l_ozet.setVisible(True)
+            else:
+                self.l_ozet.setText("")
+                self.l_ozet.setVisible(False)
+            if puan:
+                try:
+                    self.ilk.puan = float(puan)
+                except Exception:
+                    pass
+            par = []
+            if yil or self.ilk.yil():
+                par.append(yil or self.ilk.yil())
+            if getattr(self.ilk, "puan", 0):
+                par.append(f"★ {self.ilk.puan:.1f}")
+            kat = (self.grup.get("kategori") or self.ilk.kategori or "").lower()
+            n_bol = len(self.grup.get("bolumler") or [])
+            if (not self.grup.get("tekil")) and kat in ("series", "anime", "dizi"):
+                par.append(f"{n_bol} bölüm")
+            elif self.grup.get("tekil"):
+                n_alt = len(getattr(self.ilk, "alternatifler", None) or [])
+                if n_alt:
+                    par.append(f"{n_alt + 1} kaynak")
+            if self.ilk.kalite():
+                par.append(self.ilk.kalite())
+            if self.ilk.dublaj():
+                par.append("TR Dublaj")
+            if self.ilk.grup and kat != "live":
+                par.append(self.ilk.grup[:28])
+            self.l_meta.setText("  ·  ".join(par))
+        except RuntimeError:
+            pass
+
+    def _oynat(self):
+        pen = self.window()
+        if hasattr(pen, "oynat"):
+            pen.oynat(self.ilk, self.grup["bolumler"], 0)
+
+    def mousePressEvent(self, e):
+        if e.button() == Qt.MouseButton.LeftButton:
+            # Afiş veya satıra tıklanınca detay
+            self._tiklandi(self.grup)
+
+    def enterEvent(self, e):
+        self._hover = True
+        self.setStyleSheet(
+            f"ListeSatiri{{background:{R_YUZEY2};border:1px solid #3a4050;"
+            f"border-radius:12px;}}")
+
+    def leaveEvent(self, e):
+        self._hover = False
+        self.setStyleSheet(
+            f"ListeSatiri{{background:{R_YUZEY};border:1px solid {R_CIZGI};"
+            f"border-radius:12px;}}")
+
+
 class YatayKart(QFrame):
+
     def __init__(self, grup: dict, depo: Depo, tiklandi, parent=None, en: int = 0):
         super().__init__(parent)
         self.grup, self.depo, self._tiklandi = grup, depo, tiklandi
