@@ -1567,15 +1567,15 @@ HAZIR_SAGLAYICILAR = [
     # ── Doğrudan / HLS ──
     {
         "ad": "VidMody",
-        "tpl": "https://vidmody.com/vs/{IMDB}",
+        "tpl": "https://ha.vixolity.com/vs/{IMDB}",
         "tip": "movie",
         "aktif": True,
         "tarayici": False,
-        "aciklama": "Doğrudan HLS — mpv ile oynatılır.",
+        "aciklama": "Doğrudan HLS (ha.vixolity.com) — mpv ile oynatılır.",
     },
     {
         "ad": "VidMody TV",
-        "tpl": "https://vidmody.com/vs/{IMDB}/{S}/{E}",
+        "tpl": "https://ha.vixolity.com/vs/{IMDB}/{S}/{E}",
         "tip": "tv",
         "aktif": True,
         "tarayici": False,
@@ -1741,11 +1741,25 @@ HAZIR_SAGLAYICILAR = [
 def saglayicilari_hazirla(depo) -> list:
     """
     Liste boşsa varsayılanları yazar; eksik HTML/embed sağlayıcıları pasif ekler.
+    Eski vidmody.com şablonlarını ha.vixolity.com'a taşır.
     """
     mevcut = depo.ayarlar.setdefault("saglayicilar", [])
     if not isinstance(mevcut, list):
         mevcut = []
         depo.ayarlar["saglayicilar"] = mevcut
+
+    # vidmody.com → ha.vixolity.com (kullanıcı kaydı varsa yerinde güncelle)
+    _vidmody_degisti = False
+    for s in mevcut:
+        tpl = s.get("tpl") or ""
+        if "vidmody.com" in tpl:
+            s["tpl"] = tpl.replace("vidmody.com", "ha.vixolity.com")
+            _vidmody_degisti = True
+    if _vidmody_degisti:
+        try:
+            depo.kaydet()
+        except Exception:
+            pass
 
     _OTO = {
         "VidMody", "VidMody TV", "SmashyStream", "SmashyStream TV",
